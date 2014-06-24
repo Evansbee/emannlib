@@ -6,4 +6,4 @@ file(GLOB ALL_SOURCE_FILES
     "*.hpp"
 )
 
-add_library(emannlib-tests STATIC ${ALL_SOURCE_FILES})
+add_executable(emannlib-tests ${ALL_SOURCE_FILES})
