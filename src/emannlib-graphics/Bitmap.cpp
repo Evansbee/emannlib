@@ -1,8 +1,8 @@
-#include "goldenduck/Bitmap.hpp"
-#include "goldenduck/FileSystemAccess.hpp"
-#include "goldenduck/Assert.hpp"
-#include "goldenduck/AutoProfile.hpp"
-#include "goldenduck/Math.hpp"
+#include "Bitmap.hpp"
+#include "../emannlib-filesystem/FileSystemAccess.hpp"
+#include "../emannlib-utility/Assert.hpp"
+#include "../emannlib-utility/AutoProfile.hpp"
+#include "../emannlib-math/Math.hpp"
 
 #include "stb_image.h"
 #include "stb_image_write.h"
