@@ -1,6 +1,6 @@
 //
 //  RunTime.cpp
-//  goldenduckLib
+//  emannlibLib
 //
 //  Created by Evan Ackmann on 5/7/14.
 //
@@ -16,7 +16,7 @@
 #include "AutoProfile.hpp"
 #include "Time.hpp"
 
-namespace goldenduck {
+namespace emannlib {
    
         RunTime::RunTime(){}
         RunTime::~RunTime(){}
@@ -36,7 +36,7 @@ namespace goldenduck {
 				double dt = currentTime - lastTime;
                 for(auto it = m_RunningTaskList.begin(); it != m_RunningTaskList.end();)
                 {
-                    std::shared_ptr<goldenduck::Task> task = (*it);
+                    std::shared_ptr<emannlib::Task> task = (*it);
                     it++;
                     if(!task->CanKill())
                     {
@@ -47,7 +47,7 @@ namespace goldenduck {
                 //nuke running stuff
                 for(auto it = m_RunningTaskList.begin(); it != m_RunningTaskList.end();)
                 {
-                    std::shared_ptr<goldenduck::Task> task = (*it);
+                    std::shared_ptr<emannlib::Task> task = (*it);
                     it++;
                     if(task->CanKill())
                     {
@@ -63,7 +63,7 @@ namespace goldenduck {
             return 0;
         }
         
-        bool RunTime::AddTask(std::shared_ptr<goldenduck::Task> newTask)
+        bool RunTime::AddTask(std::shared_ptr<emannlib::Task> newTask)
         {
             AUTO_PROFILE("Runtime::AddTask");
             if(!newTask->Start())
@@ -73,7 +73,7 @@ namespace goldenduck {
             auto it = m_RunningTaskList.begin();
             for(; it != m_RunningTaskList.end();++it)
             {
-                std::shared_ptr<goldenduck::Task> task = (*it);
+                std::shared_ptr<emannlib::Task> task = (*it);
                 if(task->GetPriority() > newTask->GetPriority())
                 {
                     break;
@@ -82,7 +82,7 @@ namespace goldenduck {
             m_RunningTaskList.insert(it,newTask);
             return true;
         }
-        void RunTime::SuspendTask(std::shared_ptr<goldenduck::Task> newTask)
+        void RunTime::SuspendTask(std::shared_ptr<emannlib::Task> newTask)
         {
             AUTO_PROFILE("Runtime::SuspendTask");
             if(std::find(m_RunningTaskList.begin(),m_RunningTaskList.end(),newTask) != m_RunningTaskList.end())
@@ -92,7 +92,7 @@ namespace goldenduck {
                 //m_P
             }
         }
-        void RunTime::ResumeTask(std::shared_ptr<goldenduck::Task> newTask)
+        void RunTime::ResumeTask(std::shared_ptr<emannlib::Task> newTask)
         {
             AUTO_PROFILE("Runtime::ResumeTask");
 			if (std::find(m_RunningTaskList.begin(), m_RunningTaskList.end(), newTask) != m_RunningTaskList.end())
@@ -102,7 +102,7 @@ namespace goldenduck {
 				//m_P
 			}
         }
-        void RunTime::KillTask(std::shared_ptr<goldenduck::Task> newTask)
+        void RunTime::KillTask(std::shared_ptr<emannlib::Task> newTask)
         {
              AUTO_PROFILE("Runtime::KillTask");
 			 if (std::find(m_RunningTaskList.begin(), m_RunningTaskList.end(), newTask) != m_RunningTaskList.end())
@@ -117,7 +117,7 @@ namespace goldenduck {
 			//nuke running stuff
 			for (auto it = m_RunningTaskList.begin(); it != m_RunningTaskList.end();)
 			{
-				std::shared_ptr<goldenduck::Task> task = (*it);
+				std::shared_ptr<emannlib::Task> task = (*it);
 				
 				it++;
 				

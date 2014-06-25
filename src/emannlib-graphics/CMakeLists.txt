@@ -5,6 +5,13 @@ file(GLOB ALL_SOURCE_FILES
     "*.cpp"
     "*.hpp"
 )
+
+if (MSVC)
+	set(ARCHIVE_OUTPUT_NAME_DEBUG ${ARCHIVE_OUTPUT_NAME}d)
+	set(LIBRARY_OUTPUT_NAME_DEBUG ${LIBRARY_OUTPUT_NAME}d)
+endif (MSVC)
+
+
 add_library(emannlib-graphics STATIC ${ALL_SOURCE_FILES})
-target_link_libraries(emannlib-graphics freetype253.lib glew32s.lib glfw3.lib)
+#target_link_libraries(emannlib-graphics ${FREETYPE_LIBRARY} ${GLEW_LIBRARY} ${GLFW_LIBRARY})
 

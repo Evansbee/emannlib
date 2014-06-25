@@ -14,8 +14,6 @@ struct GLFWwindow;
 #include <string>
 #include <inttypes.h>
 
-#include "../emannlib-ecs/Event.hpp"
-#include "../emannlib-ecs/Entity.hpp"
 
 namespace goldenduck
 {
@@ -51,98 +49,6 @@ namespace goldenduck
 		bool m_CanKill;
 	};
 
-	class WindowUpdateTask : public Task
-	{
-	public:
-		WindowUpdateTask();
-		~WindowUpdateTask();
-
-		bool Start();
-		void OnSuspend();
-		void Update(double deltaTime);
-		void OnResume();
-		void Stop();
-
-	private:
-		GLFWwindow *m_Window;
-		int m_PosX;
-		int m_PosY;
-		int m_Height;
-		int m_Width;
-
-		double m_SampleStartTime;
-		unsigned int m_FrameCount;
-		unsigned int m_CurrentFPS;
-
-		std::string m_Title;
-	};
-
-	class KeyDownEvent : public Event<KeyDownEvent>
-	{
-	public:
-		KeyDownEvent() {}
-		KeyDownEvent(int keyCode, int scan) : m_KeyCode(keyCode) , m_ScanCode(scan) {}
-		int m_KeyCode;
-		int m_ScanCode;
-	};
-
-	class KeyUpEvent : public Event<KeyUpEvent>
-	{
-	public:
-		KeyUpEvent() {}
-		KeyUpEvent(int keyCode, int scan) : m_KeyCode(keyCode), m_ScanCode(scan) {}
-		int m_KeyCode;
-		int m_ScanCode;
-	};
-
-	class CursorPositionEvent : public Event<CursorPositionEvent>
-	{
-	public:
-		CursorPositionEvent() {}
-		CursorPositionEvent(double x, double y) : m_X(x), m_Y(y) {}
-		double m_X;
-		double m_Y;
-	};
-
-	class InputTask : public Task
-	{
-	public:
-		InputTask();
-		InputTask(std::shared_ptr<EventManager> eventMgr);
-		~InputTask();
-
-		bool Start();
-		void OnSuspend();
-		void Update(double deltaTime);
-		void OnResume();
-		void Stop();
-
-		void KeyCallbackFunction(GLFWwindow *win, int key, int scan, int action, int mods);
-			
-		bool IsKeyDown(char key);
-
-	private:
-		std::shared_ptr<EventManager> m_EventManager;
-
-		double m_StoredXPosition;
-		double m_StoredYPosition;
-	};
-
-	class BufferSwapTask : public Task
-	{
-	public:
-		BufferSwapTask();
-		~BufferSwapTask();
-
-		bool Start();
-		void OnSuspend();
-		void Update(double deltaTime);
-		void OnResume();
-		void Stop();
-
-	private:
-
-	};
 }
 
 #endif
