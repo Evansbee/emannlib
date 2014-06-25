@@ -1,4 +1,4 @@
-#include "goldenduck\Assert.hpp"
+#include "Assert.hpp"
 
 
 #include <string>

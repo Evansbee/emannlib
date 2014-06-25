@@ -21,8 +21,8 @@ File Name     : Entity.cpp
 Purpose       :
 */
 
-#include "goldenduck/Entity.hpp"
-#include "goldenduck/Autoprofile.hpp"
+#include "Entity.hpp"
+#include "../emannlib-utility/Autoprofile.hpp"
 
 namespace goldenduck
 {

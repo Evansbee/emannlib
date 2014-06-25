@@ -6,8 +6,8 @@
 //
 //
 
-#include "goldenduck/AutoProfile.hpp"
-#include "goldenduck/Time.hpp"
+#include "AutoProfile.hpp"
+#include "Time.hpp"
 
 
 #include <vector>

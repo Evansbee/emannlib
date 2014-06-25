@@ -1,11 +1,11 @@
-#include "goldenduck\System.hpp"
-#include "goldenduck\Entity.hpp"
-#include "goldenduck\Event.hpp"
-#include "goldenduck\RunTime.hpp"
-#include "goldenduck\Task.hpp"
-#include "goldenduck\Components.hpp"
-#include "goldenduck\OpenGLStateMachine.hpp"
-#include "goldenduck\AutoProfile.hpp"
+#include "System.hpp"
+#include "Entity.hpp"
+#include "Event.hpp"
+#include "../emannlib-utility/RunTime.hpp"
+#include "../emannlib-utility/Task.hpp"
+#include "Components.hpp"
+#include "OpenGLStateMachine.hpp"
+#include "../emannlib-utility/AutoProfile.hpp"
 
 
 

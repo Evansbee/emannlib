@@ -1,9 +1,9 @@
 #include <string>
 #include <vector>
 
-#include "goldenduck/FileSystemAccess.hpp"
-#include "goldenduck/Path.hpp"
-#include "goldenduck/AutoProfile.hpp"
+#include "FileSystemAccess.hpp"
+#include "Path.hpp"
+#include "../emannlib-utility/AutoProfile.hpp"
 
 namespace goldenduck
 {

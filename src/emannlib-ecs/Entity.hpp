@@ -33,7 +33,7 @@
 #include <iostream>
 #include <unordered_set>
 
-#include "goldenduck/Event.hpp"
+#include "Event.hpp"
 
 #define goldenduck_MAX_COMPONENTS (64)
 

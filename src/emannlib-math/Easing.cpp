@@ -6,8 +6,8 @@
 //
 //
 
-#include "goldenduck/Easing.hpp"
-#include "goldenduck/Math.hpp"
+#include "Easing.hpp"
+#include "Math.hpp"
 #include <math.h>
 
 namespace goldenduck

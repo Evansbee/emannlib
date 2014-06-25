@@ -21,7 +21,7 @@ File Name     : Math.h
 Purpose       :
 */
 
-#include "goldenduck/Math.hpp"
+#include "Math.hpp"
 
 namespace goldenduck
 {

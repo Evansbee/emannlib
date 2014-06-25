@@ -1,7 +1,7 @@
 #ifndef __RESOURCE_MANAGER_HPP__
 #define __RESOURCE_MANAGER_HPP__
 
-#include "goldenduck\Singleton.hpp"
+#include "../emannlib-utility/Singleton.hpp"
 
 #include <string>
 #include <fstream>

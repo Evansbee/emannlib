@@ -11,10 +11,10 @@
 #include <chrono>
 #include <thread>
 
-#include "goldenduck/RunTime.hpp"
-#include "goldenduck/Task.hpp"
-#include "goldenduck/AutoProfile.hpp"
-#include "goldenduck/Time.hpp"
+#include "RunTime.hpp"
+#include "Task.hpp"
+#include "AutoProfile.hpp"
+#include "Time.hpp"
 
 namespace goldenduck {
    

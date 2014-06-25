@@ -21,7 +21,7 @@ File Name     : Event.cpp
 Purpose       :
 */
 
-#include "goldenduck/Event.hpp"
+#include "Event.hpp"
 
 namespace goldenduck
 {

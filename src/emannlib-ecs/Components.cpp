@@ -1,4 +1,4 @@
-#include "goldenduck\Components.hpp"
+#include "Components.hpp"
 
 namespace goldenduck
 {

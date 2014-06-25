@@ -34,7 +34,7 @@ Purpose       :
 #include <map>
 #include <unordered_map>
 
-#include "goldenduck\AutoProfile.hpp"
+#include "../emannlib-utility/AutoProfile.hpp"
 namespace goldenduck
 {
     class BaseEvent
