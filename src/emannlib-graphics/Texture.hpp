@@ -1,9 +1,9 @@
 #ifndef __texture_h__
 #define __texture_h__
 
-#include "goldenduck/Math.hpp"
-#include "goldenduck/AutoProfile.hpp"
-#include "goldenduck/Bitmap.hpp"
+#include "../emannlib-math/Math.hpp"
+#include "../emannlib-utility/AutoProfile.hpp"
+#include "../emannlib-graphics/Bitmap.hpp"
 
 #include <inttypes.h>
 

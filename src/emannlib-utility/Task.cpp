@@ -1,12 +1,12 @@
-#include "goldenduck\Task.hpp"
-#include "goldenduck\RunTime.hpp"
-#include "goldenduck\AutoProfile.hpp"
-#include "goldenduck\Texture.hpp"
-#include "goldenduck\Bitmap.hpp"
-#include "goldenduck/Font.hpp"
-#include "goldenduck/OpenGLStateMachine.hpp"
-#include "goldenduck\Entity.hpp"
-#include "goldenduck\Event.hpp"
+#include "Task.hpp"
+#include "RunTime.hpp"
+#include "AutoProfile.hpp"
+#include "../emannlib-graphics/Texture.hpp"
+#include "../emannlib-graphics/Bitmap.hpp"
+#include "../emannlib-graphics/Font.hpp"
+#include "../emannlib-graphics/OpenGLStateMachine.hpp"
+#include "../emannlib-ecs/Entity.hpp"
+#include "../emannlib-ecs/Event.hpp"
 
 #include <memory>
 

@@ -1,4 +1,4 @@
-#include "goldenduck/OpenGLStateMachine.hpp"
+#include "OpenGLStateMachine.hpp"
 
 namespace goldenduck
 {

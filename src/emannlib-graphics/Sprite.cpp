@@ -1,6 +1,6 @@
-#include "goldenduck\Sprite.hpp"
-#include "goldenduck\Components.hpp"
-#include "goldenduck\Texture.hpp"
+#include "Sprite.hpp"
+#include "../emannlib-ecs/Components.hpp"
+#include "../emannlib-graphics/Texture.hpp"
 
 #include <vector>
 

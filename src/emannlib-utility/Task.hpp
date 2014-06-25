@@ -14,8 +14,8 @@ struct GLFWwindow;
 #include <string>
 #include <inttypes.h>
 
-#include "goldenduck\Event.hpp"
-#include "goldenduck\Entity.hpp"
+#include "../emannlib-ecs/Event.hpp"
+#include "../emannlib-ecs/Entity.hpp"
 
 namespace goldenduck
 {

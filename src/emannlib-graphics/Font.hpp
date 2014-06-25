@@ -6,7 +6,7 @@
 
 #include <string>
 
-#include "goldenduck/Bitmap.hpp"
+#include "Bitmap.hpp"
 
 namespace goldenduck
 {

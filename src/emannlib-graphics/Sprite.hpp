@@ -1,7 +1,7 @@
 #ifndef __SPRITE_HPP__
 #define __SPRITE_HPP__
 
-#include "goldenduck\Entity.hpp"
+#include "../emannlib-ecs/Entity.hpp"
 #include <memory>
 #include <string>
 #include <inttypes.h>

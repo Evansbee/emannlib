@@ -12,8 +12,8 @@
 #include <memory>
 #include <list>
 
-#include "goldenduck/Task.hpp"
-#include "goldenduck/Singleton.hpp"
+#include "Task.hpp"
+#include "Singleton.hpp"
 
 namespace goldenduck {
     

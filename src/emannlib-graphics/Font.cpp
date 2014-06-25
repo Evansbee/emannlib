@@ -1,6 +1,6 @@
-#include "goldenduck\Font.hpp"
-#include "goldenduck\Math.hpp"
-#include "goldenduck\AutoProfile.hpp"
+#include "Font.hpp"
+#include "../emannlib-math/Math.hpp"
+#include "../emannlib-utility/AutoProfile.hpp"
 
 #include "ftglyph.h"
 

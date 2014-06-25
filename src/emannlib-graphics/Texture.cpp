@@ -1,4 +1,4 @@
-#include "goldenduck/Texture.hpp"
+#include "Texture.hpp"
 
 namespace goldenduck
 {

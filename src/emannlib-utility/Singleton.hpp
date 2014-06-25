@@ -1,7 +1,7 @@
 #ifndef __singleton_h__
 #define __singleton_h__
 
-#include "goldenduck\Assert.hpp"
+#include "Assert.hpp"
 
 
 

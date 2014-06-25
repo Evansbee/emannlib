@@ -21,8 +21,8 @@ File Name     : ShaderImp.h
 Purpose       :
 */
 
-#include "goldenduck/Shader.hpp"
-#include "goldenduck/AutoProfile.hpp"
+#include "Shader.hpp"
+#include "../emannlib-utility/AutoProfile.hpp"
 
 #include <fstream>
 #include <sstream>

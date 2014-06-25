@@ -6,7 +6,7 @@
 #include "../emannlib-utility/RunTime.hpp"
 #include "../emannlib-utility/Task.hpp"
 #include "Components.hpp"
-#include "../emannlib-utility/OpenGLStateMachine.hpp"
+#include "../emannlib-graphics/OpenGLStateMachine.hpp"
 
 
 

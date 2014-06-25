@@ -4,7 +4,7 @@
 #include "../emannlib-utility/RunTime.hpp"
 #include "../emannlib-utility/Task.hpp"
 #include "Components.hpp"
-#include "OpenGLStateMachine.hpp"
+#include "../emannlib-graphics/OpenGLStateMachine.hpp"
 #include "../emannlib-utility/AutoProfile.hpp"
 
 
