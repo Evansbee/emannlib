@@ -9,5 +9,8 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/bin)
 
+link_directories(${CMAKE_CURRENT_LIST_DIR}/3rdparty/lib)
+include_directories(${CMAKE_CURRENT_LIST_DIR}/3rdparty/include)
+
 add_subdirectory(src)
 add_subdirectory(test)

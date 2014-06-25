@@ -1,9 +1,10 @@
 #ifndef __components_h__
 #define __components_h__
 
-#include "goldenduck/Entity.hpp"
-#include "goldenduck/Texture.hpp"
-#include "goldenduck/Easing.hpp"
+#include "Entity.hpp"
+#include "../emannlib-graphics/Texture.hpp"
+#include "../emannlib-math/Easing.hpp"
+#include "../emannlib-math/Math.hpp"
 
 #define GLFW_INCLUDE_GLU
 #define GLEW_STATIC
