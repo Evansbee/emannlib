@@ -1,6 +1,6 @@
 #include "OpenGLStateMachine.hpp"
 
-namespace goldenduck
+namespace emannlib
 {
 	OpenGLStateMachine::OpenGLStateMachine(GLFWwindow *activeWindow, uint32_t viewportWidth, uint32_t viewportHeight) :
 		m_ViewportHeight(viewportHeight),

@@ -4,7 +4,7 @@
 #include <functional>
 #include <string>
 
-namespace goldenduck
+namespace emannlib
 {
 	class Assert
 	{
@@ -18,6 +18,6 @@ namespace goldenduck
 	};
 }
 
-#define GD_ASSERT(x) goldenduck::Assert::Assertion(x, #x, __FILE__, __LINE__)
+#define GD_ASSERT(x) emannlib::Assert::Assertion(x, #x, __FILE__, __LINE__)
 
 #endif

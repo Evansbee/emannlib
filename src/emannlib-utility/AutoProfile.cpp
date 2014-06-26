@@ -1,6 +1,6 @@
 //
 //  AutoProfile.cpp
-//  goldenduckLib
+//  emannlibLib
 //
 //  Created by Evan Ackmann on 5/10/14.
 //
@@ -21,7 +21,7 @@
 #include <map>
 
 
-namespace goldenduck
+namespace emannlib
 {
 #ifdef _DEBUG
 	ProfileNode * AutoProfile::ms_RootProfileNode = new ProfileNode("Application", true);

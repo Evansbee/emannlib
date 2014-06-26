@@ -21,7 +21,7 @@ File Name     : EntityImp.hpp
 Purpose       :
 */
 
-namespace goldenduck
+namespace emannlib
 {
 	template <class T>
 	uint32_t Component<T>::GetTypeID()
@@ -107,7 +107,7 @@ namespace goldenduck
 	{
 		AUTO_PROFILE("EntityManager::AddComponent");
 		Entity newEntity(shared_from_this(), id);
-		if (C::GetTypeID() < goldenduck_MAX_COMPONENTS)
+		if (C::GetTypeID() < emannlib_MAX_COMPONENTS)
 		{
 			std::shared_ptr<BaseComponent> base(std::static_pointer_cast<BaseComponent>(component));
 			AllocateSpaceForComponent(C::GetTypeID());
@@ -166,7 +166,7 @@ namespace goldenduck
 	{
 		AUTO_PROFILE("EntityManager::GetEntitiesWithComponents");
 		std::shared_ptr<EntityManager> em = shared_from_this();
-		std::bitset<goldenduck_MAX_COMPONENTS> mask = CreateComponentMask<A, Args...>();
+		std::bitset<emannlib_MAX_COMPONENTS> mask = CreateComponentMask<A, Args...>();
 		return EntityManager::FilteredView(em, [em, mask](Entity e) { return  ((em->m_EntityComponentMask[e.m_ID.GetIndex()] & mask) == mask); });
 	}
 

@@ -5,7 +5,7 @@
 
 
 
-namespace goldenduck
+namespace emannlib
 {
 	template <typename T>
 	class Singleton

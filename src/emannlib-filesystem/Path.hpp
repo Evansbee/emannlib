@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-namespace goldenduck
+namespace emannlib
 {
 	
 		class Path 

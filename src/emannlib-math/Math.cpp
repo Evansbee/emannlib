@@ -23,7 +23,7 @@ Purpose       :
 
 #include "Math.hpp"
 
-namespace goldenduck
+namespace emannlib
 {
 	
 

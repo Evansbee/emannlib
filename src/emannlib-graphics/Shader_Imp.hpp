@@ -22,7 +22,7 @@ Purpose       :
 */
 
 
-namespace goldenduck
+namespace emannlib
 {
 	
 }

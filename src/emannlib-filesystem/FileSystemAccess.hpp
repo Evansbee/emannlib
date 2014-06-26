@@ -5,7 +5,7 @@
 #include <vector>
 #include <fstream>
 
-namespace goldenduck
+namespace emannlib
 {
 	
 		bool IsDirectory(const std::string& filename);

@@ -1,19 +1,19 @@
 //
 //  AutoProfile.hpp
-//  goldenduckLib
+//  emannlibLib
 //
 //  Created by Evan Ackmann on 5/9/14.
 //
 //
 
-#ifndef goldenduckLib_AutoProfile_hpp
-#define goldenduckLib_AutoProfile_hpp
+#ifndef emannlibLib_AutoProfile_hpp
+#define emannlibLib_AutoProfile_hpp
 
 #include <vector>
 #include <string>
 #include <inttypes.h>
 
-namespace goldenduck {
+namespace emannlib {
 
 #ifdef _DEBUG
 
@@ -94,7 +94,7 @@ namespace goldenduck {
 }
 
 #ifdef _DEBUG
-#define AUTO_PROFILE(x) goldenduck::AutoProfile autoprofilehelper( x )
+#define AUTO_PROFILE(x) emannlib::AutoProfile autoprofilehelper( x )
 #else
 #define AUTO_PROFILE(x) 
 #endif

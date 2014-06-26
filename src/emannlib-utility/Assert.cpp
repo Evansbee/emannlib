@@ -5,7 +5,7 @@
 #include <sstream>
 #include <iostream>
 
-namespace goldenduck
+namespace emannlib
 {
 	void defaultOutput(const std::string& output);
 

@@ -5,7 +5,6 @@
 #include "Event.hpp"
 #include "../emannlib-utility/RunTime.hpp"
 #include "../emannlib-utility/Task.hpp"
-#include "Components.hpp"
 #include "../emannlib-graphics/OpenGLStateMachine.hpp"
 
 
@@ -16,7 +15,7 @@
 #include "GL\glew.h"
 #include "GLFW\glfw3.h"
 
-namespace goldenduck
+namespace emannlib
 {
 	class System : public Task
 	{

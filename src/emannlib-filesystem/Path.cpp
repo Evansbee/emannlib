@@ -5,7 +5,7 @@
 #include "Path.hpp"
 #include "../emannlib-utility/AutoProfile.hpp"
 
-namespace goldenduck
+namespace emannlib
 {
 	
 		void split(std::vector<std::string> &tokens, const std::string& startstring, const std::string& delimiter)

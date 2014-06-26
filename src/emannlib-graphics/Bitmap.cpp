@@ -8,7 +8,7 @@
 #include "stb_image_write.h"
 
 
-namespace goldenduck
+namespace emannlib
 {
 	Bitmap& Bitmap::operator = (Bitmap other)
 	{

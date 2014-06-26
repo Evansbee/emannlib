@@ -1,6 +1,6 @@
 //
 //  Easing.cpp
-//  goldenduckLib
+//  emannlibLib
 //
 //  Created by Evan Ackmann on 5/7/14.
 //
@@ -10,7 +10,7 @@
 #include "Math.hpp"
 #include <math.h>
 
-namespace goldenduck
+namespace emannlib
 {
     
         
@@ -109,19 +109,19 @@ namespace goldenduck
         /// Modeled after quarter-cycle of sine wave
 		double SineEaseInFunction(double p) 
 		{ 
-			return goldenduck::Math<double>::Sin((p - 1) * goldenduck::Math<double>::HALF_PI) + 1; 
+			return emannlib::Math<double>::Sin((p - 1) * emannlib::Math<double>::HALF_PI) + 1; 
 		}
         
         /// Modeled after quarter-cycle of sine wave (different phase)
 		double SineEaseOutFunction(double p) 
 		{ 
-			return goldenduck::Math<double>::Sin(p * goldenduck::Math<double>::HALF_PI);
+			return emannlib::Math<double>::Sin(p * emannlib::Math<double>::HALF_PI);
 		}
         
         /// Modeled after half sine wave
 		double SineEaseInOutFunction(double p) 
 		{ 
-			return 0.5 * (1 - goldenduck::Math<double>::Cos(p * goldenduck::Math<double>::PI));
+			return 0.5 * (1 - emannlib::Math<double>::Cos(p * emannlib::Math<double>::PI));
 		}
         
     
@@ -132,19 +132,19 @@ namespace goldenduck
         /// Modeled after shifted quadrant IV of unit circle
 		double CircularEaseInFunction(double p) 
 		{ 
-			return 1 - goldenduck::Math<double>::Sqrt(1 - (p * p));
+			return 1 - emannlib::Math<double>::Sqrt(1 - (p * p));
 		}
         
         /// Modeled after shifted quadrant II of unit circle
 		double CircularEaseOutFunction(double p) 
 		{ 
-			return goldenduck::Math<double>::Sqrt((2 - p) * p);
+			return emannlib::Math<double>::Sqrt((2 - p) * p);
 		}
         
         /// Modeled after the piecewise circular function: y = (1/2)(1 - sqrt(1 - 4x^2)) [0, 0.5] | y = (1/2)(sqrt(-(2x - 3)*(2x - 1)) + 1) [0.5, 1]
 		double CircularEaseInOutFunction(double p) 
 		{ 
-			return (p < 0.5) ? 0.5 * (1 - goldenduck::Math<double>::Sqrt(1 - 4 * (p * p))) : 0.5 * (goldenduck::Math<double>::Sqrt(-((2 * p) - 3) * ((2 * p) - 1)) + 1);
+			return (p < 0.5) ? 0.5 * (1 - emannlib::Math<double>::Sqrt(1 - 4 * (p * p))) : 0.5 * (emannlib::Math<double>::Sqrt(-((2 * p) - 3) * ((2 * p) - 1)) + 1);
 		}
        
         
@@ -154,19 +154,19 @@ namespace goldenduck
         /// Modeled after the exponential function: y = 2^(10(x - 1))
 		double ExponentialEaseInFunction(double p) 
 		{ 
-			return (p == 0.0) ? p : goldenduck::Math<double>::Pow(2, 10 * (p - 1));
+			return (p == 0.0) ? p : emannlib::Math<double>::Pow(2, 10 * (p - 1));
 		}
         
         /// Modeled after the exponential function: y = -2^(-10x) + 1
 		double ExponentialEaseOutFunction(double p) 
 		{ 
-			return (p == 1.0) ? p : 1 - goldenduck::Math<double>::Pow(2, -10 * p);
+			return (p == 1.0) ? p : 1 - emannlib::Math<double>::Pow(2, -10 * p);
 		}
         
         /// Modeled after the piecewise exponential: y = (1/2)2^(10(2x - 1)) [0,0.5] | y = -(1/2)*2^(-10(2x - 1))) + 1 [0.5,1]
 		double ExponentialEaseInOutFunction(double p) 
 		{ 
-			return (p == 0.0 || p == 1.0) ? p : (p < 0.5) ? 0.5 * goldenduck::Math<double>::Pow(2, (20 * p) - 10) : -0.5 * goldenduck::Math<double>::Pow(2, (-20 * p) + 10) + 1;
+			return (p == 0.0 || p == 1.0) ? p : (p < 0.5) ? 0.5 * emannlib::Math<double>::Pow(2, (20 * p) - 10) : -0.5 * emannlib::Math<double>::Pow(2, (-20 * p) + 10) + 1;
 		}
         
 
@@ -176,19 +176,19 @@ namespace goldenduck
         /// Modeled after the damped sine wave: y = sin(13pi/2*x)*pow(2, 10 * (x - 1))
 		double ElasticEaseInFunction(double p) 
 		{ 
-			return goldenduck::Math<double>::Sin(13 * goldenduck::Math<double>::HALF_PI * p) * goldenduck::Math<double>::Pow(2, 10 * (p - 1));
+			return emannlib::Math<double>::Sin(13 * emannlib::Math<double>::HALF_PI * p) * emannlib::Math<double>::Pow(2, 10 * (p - 1));
 		}
         
         /// Modeled after the damped sine wave: y = sin(-13pi/2*(x + 1))*pow(2, -10x) + 1
 		double ElasticEaseOutFunction(double p) 
 		{ 
-			return goldenduck::Math<double>::Sin(-13 * goldenduck::Math<double>::HALF_PI * (p + 1)) * goldenduck::Math<double>::Pow(2, -10 * p) + 1;
+			return emannlib::Math<double>::Sin(-13 * emannlib::Math<double>::HALF_PI * (p + 1)) * emannlib::Math<double>::Pow(2, -10 * p) + 1;
 		}
         
         /// Modeled after the piecewise exponentially-damped sine wave: y = (1/2)*sin(13pi/2*(2*x))*pow(2, 10 * ((2*x) - 1)) [0,0.5] | y = (1/2)*(sin(-13pi/2*((2x-1)+1))*pow(2,-10(2*x-1)) + 2) [0.5, 1]
 		double ElasticEaseInOutFunction(double p) 
 		{ 
-			return (p < 0.5) ? 0.5 *  goldenduck::Math<double>::Sin(13 * goldenduck::Math<double>::HALF_PI * (2 * p)) * goldenduck::Math<double>::Pow(2, 10 * ((2 * p) - 1)) : 0.5 * (goldenduck::Math<double>::Sin(-13 * goldenduck::Math<double>::HALF_PI * ((2 * p - 1) + 1)) * goldenduck::Math<double>::Pow(2, -10 * (2 * p - 1)) + 2);
+			return (p < 0.5) ? 0.5 *  emannlib::Math<double>::Sin(13 * emannlib::Math<double>::HALF_PI * (2 * p)) * emannlib::Math<double>::Pow(2, 10 * ((2 * p) - 1)) : 0.5 * (emannlib::Math<double>::Sin(-13 * emannlib::Math<double>::HALF_PI * ((2 * p - 1) + 1)) * emannlib::Math<double>::Pow(2, -10 * (2 * p - 1)) + 2);
 		}
         
       
@@ -198,19 +198,19 @@ namespace goldenduck
         /// Modeled after the overshooting cubic: y = x^3-x*sin(x*pi)
 		double BackEaseInFunction(double p) 
 		{ 
-			return p * p * p - p * goldenduck::Math<double>::Sin(p * goldenduck::Math<double>::PI);
+			return p * p * p - p * emannlib::Math<double>::Sin(p * emannlib::Math<double>::PI);
 		}
         
         /// Modeled after overshooting cubic: y = 1-((1-x)^3-(1-x)*sin((1-x)*pi))
 		double BackEaseOutFunction(double p) 
 		{ 
-			return 1 - ((1 - p) * (1 - p) * (1 - p) - (1 - p) * goldenduck::Math<double>::Sin((1 - p) * goldenduck::Math<double>::PI));
+			return 1 - ((1 - p) * (1 - p) * (1 - p) - (1 - p) * emannlib::Math<double>::Sin((1 - p) * emannlib::Math<double>::PI));
 		}
         
         /// Modeled after the piecewise overshooting cubic function: y = (1/2)*((2x)^3-(2x)*sin(2*x*pi)) [0, 0.5] | y = (1/2)*(1-((1-x)^3-(1-x)*sin((1-x)*pi))+1) [0.5, 1]
 		double BackEaseInOutFunction(double p) 
 		{ 
-			return (p < 0.5) ? 0.5 * (8 * p * p * p - (2 * p) * goldenduck::Math<double>::Sin((2 * p) * goldenduck::Math<double>::PI)) : 0.5 * (1 - ((1 - (2 * p - 1)) * (1 - (2 * p - 1)) * (1 - (2 * p - 1)) - (1 - (2 * p - 1)) * goldenduck::Math<double>::Sin((1 - (2 * p - 1)) * goldenduck::Math<double>::PI))) + 0.5;
+			return (p < 0.5) ? 0.5 * (8 * p * p * p - (2 * p) * emannlib::Math<double>::Sin((2 * p) * emannlib::Math<double>::PI)) : 0.5 * (1 - ((1 - (2 * p - 1)) * (1 - (2 * p - 1)) * (1 - (2 * p - 1)) - (1 - (2 * p - 1)) * emannlib::Math<double>::Sin((1 - (2 * p - 1)) * emannlib::Math<double>::PI))) + 0.5;
 		}
         
    

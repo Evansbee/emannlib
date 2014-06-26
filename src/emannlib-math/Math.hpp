@@ -32,7 +32,7 @@ Purpose       :
 //#include <glm/gtc/type_precision.hpp>
 //#include <glm/gtc/type_ptr.hpp>
 
-namespace goldenduck
+namespace emannlib
 {
 	inline uint32_t NextPowerOf2(uint32_t v)
 	{

@@ -12,7 +12,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-namespace goldenduck
+namespace emannlib
 {
 	class Texture
 	{

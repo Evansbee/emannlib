@@ -1,13 +1,13 @@
 //
 //  Task.hpp
-//  goldenduckLib
+//  emannlibLib
 //
 //  Created by Evan Ackmann on 5/7/14.
 //
 //
 
-#ifndef goldenduckLib_Task_hpp
-#define goldenduckLib_Task_hpp
+#ifndef emannlibLib_Task_hpp
+#define emannlibLib_Task_hpp
 
 struct GLFWwindow;
 
@@ -15,7 +15,7 @@ struct GLFWwindow;
 #include <inttypes.h>
 
 
-namespace goldenduck
+namespace emannlib
 {
 	class Task
 	{

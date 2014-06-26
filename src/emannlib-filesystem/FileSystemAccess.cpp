@@ -14,7 +14,7 @@
 	#include <unistd.h>
 #endif
 
-namespace goldenduck
+namespace emannlib
 {
 	
 		bool IsDirectory(const std::string& filename)

@@ -3,7 +3,7 @@
 
 #include <chrono>
 
-namespace goldenduck
+namespace emannlib
 {
 	class Time
 	{

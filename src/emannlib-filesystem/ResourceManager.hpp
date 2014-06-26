@@ -10,7 +10,7 @@
 #include <inttypes.h>
 
 
-namespace goldenduck
+namespace emannlib
 {
 	class Resource;
 

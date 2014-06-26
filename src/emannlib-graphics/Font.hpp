@@ -8,7 +8,7 @@
 
 #include "Bitmap.hpp"
 
-namespace goldenduck
+namespace emannlib
 {
 	class Font
 	{

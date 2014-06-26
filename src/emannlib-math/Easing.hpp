@@ -1,17 +1,17 @@
 //
 //  Easing.h
-//  goldenduckLib
+//  emannlibLib
 //
 //  Created by Evan Ackmann on 5/6/14.
 //
 //
 
-#ifndef goldenduckLib_Easing_h
-#define goldenduckLib_Easing_h
+#ifndef emannlibLib_Easing_h
+#define emannlibLib_Easing_h
 
 #include <vector>
 
-namespace goldenduck
+namespace emannlib
 {
 	enum EasingType
 	{

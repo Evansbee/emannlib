@@ -39,7 +39,7 @@ Purpose       :
 #include <glm/gtc/type_precision.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-namespace goldenduck
+namespace emannlib
 {
 	class Shader
 	{

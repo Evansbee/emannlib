@@ -23,7 +23,7 @@ Purpose       :
 
 #include "Event.hpp"
 
-namespace goldenduck
+namespace emannlib
 {
     uint32_t BaseEvent::ms_TypeIDCounter = 0;
 }

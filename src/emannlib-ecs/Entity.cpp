@@ -24,7 +24,7 @@ Purpose       :
 #include "Entity.hpp"
 #include "../emannlib-utility/Autoprofile.hpp"
 
-namespace goldenduck
+namespace emannlib
 {
 
     uint32_t BaseComponent::ms_TypeIDCounter = 0;

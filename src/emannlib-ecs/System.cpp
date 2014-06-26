@@ -1,7 +1,6 @@
 #include "System.hpp"
 #include "Entity.hpp"
 #include "Event.hpp"
-#include "Components.hpp"
 
 #include "../emannlib-utility/AutoProfile.hpp"
 #include "../emannlib-utility/RunTime.hpp"
@@ -10,7 +9,7 @@
 
 
 
-namespace goldenduck
+namespace emannlib
 {
 
 	System::System(std::shared_ptr<EntityManager> entityMgr, std::shared_ptr<EventManager> eventMgr) :

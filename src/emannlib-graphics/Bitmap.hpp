@@ -8,7 +8,7 @@
 #include <string>
 
 
-namespace goldenduck
+namespace emannlib
 {
 	class Pixel
 	{

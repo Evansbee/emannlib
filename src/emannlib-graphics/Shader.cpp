@@ -27,7 +27,7 @@ Purpose       :
 #include <fstream>
 #include <sstream>
 
-namespace goldenduck
+namespace emannlib
 {
 
 	Shader::Shader() :

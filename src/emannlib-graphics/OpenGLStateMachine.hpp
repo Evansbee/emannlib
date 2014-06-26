@@ -18,7 +18,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 
-namespace goldenduck
+namespace emannlib
 {
 	class Transform
 	{
@@ -72,7 +72,7 @@ namespace goldenduck
 	private:
 		void updateMatrixState();
 	private:
-		goldenduck::Transform m_CurrentTransform;
+		emannlib::Transform m_CurrentTransform;
 		uint32_t m_ViewportWidth;
 		uint32_t m_ViewportHeight;
 		GLFWwindow *m_ActiveWindow;

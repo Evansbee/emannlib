@@ -37,7 +37,7 @@ Purpose       :
 #include "../emannlib-utility/AutoProfile.hpp"
 
 
-namespace goldenduck
+namespace emannlib
 {
     class BaseEvent
     {

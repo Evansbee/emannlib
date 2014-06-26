@@ -6,7 +6,7 @@
 
 #include <iostream>
 
-namespace goldenduck
+namespace emannlib
 {
 	Font::Font(const std::string& fontname)
 	{

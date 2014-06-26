@@ -1,6 +1,6 @@
 #include "Texture.hpp"
 
-namespace goldenduck
+namespace emannlib
 {
 	Texture::Texture(Bitmap& bmp) :
 		m_ImageHeight(bmp.GetHeight()),

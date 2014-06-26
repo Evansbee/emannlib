@@ -35,9 +35,9 @@
 
 #include "Event.hpp"
 
-#define goldenduck_MAX_COMPONENTS (64)
+#define emannlib_MAX_COMPONENTS (64)
 
-namespace goldenduck
+namespace emannlib
 {
     
 	class EntityManager;
@@ -256,7 +256,7 @@ namespace goldenduck
 		uint32_t m_TopIndex = 0;
 		std::list<uint32_t> m_FreeSlots;
 		std::vector<uint32_t> m_EntityVersionNumbers;
-		std::vector<std::bitset<goldenduck_MAX_COMPONENTS>> m_EntityComponentMask;
+		std::vector<std::bitset<emannlib_MAX_COMPONENTS>> m_EntityComponentMask;
 		std::vector<std::vector<std::shared_ptr<BaseComponent>>> m_EntityComponents;
 		std::vector<std::unordered_set<std::string>> m_EntityTags;
 
@@ -382,16 +382,16 @@ namespace goldenduck
 
 	private:
 		template <class C>
-		std::bitset<goldenduck_MAX_COMPONENTS> CreateComponentMask()
+		std::bitset<emannlib_MAX_COMPONENTS> CreateComponentMask()
 		{
 			AUTO_PROFILE("EntityManager::CreateComponentMask");
-			std::bitset<goldenduck_MAX_COMPONENTS> m;
+			std::bitset<emannlib_MAX_COMPONENTS> m;
 			m.set(C::GetTypeID());
 			return m;
 		}
 
 		template <class C1, class C2, class ... Components>
-		std::bitset<goldenduck_MAX_COMPONENTS> CreateComponentMask() { AUTO_PROFILE("EntityManager::CreateComponentMask"); return CreateComponentMask<C1>() | CreateComponentMask<C2, Components ...>(); }
+		std::bitset<emannlib_MAX_COMPONENTS> CreateComponentMask() { AUTO_PROFILE("EntityManager::CreateComponentMask"); return CreateComponentMask<C1>() | CreateComponentMask<C2, Components ...>(); }
 
 	};
 
