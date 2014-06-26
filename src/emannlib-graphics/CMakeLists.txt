@@ -13,5 +13,12 @@ endif (MSVC)
 
 
 add_library(emannlib-graphics STATIC ${ALL_SOURCE_FILES})
-#target_link_libraries(emannlib-graphics ${FREETYPE_LIBRARY} ${GLEW_LIBRARY} ${GLFW_LIBRARY})
+
+message("Freetype libraries: " ${FREETYPE_LIBRARY})
+
+message("Glfw libraries: " ${GLFW_LIBRARY})
+message("Glew libraries: " ${GLEW_LIBRARY})
+
+
+target_link_libraries(emannlib-graphics PUBLIC ${FREETYPE_LIBRARY} ${GLEW_LIBRARY} ${GLFW_LIBRARY})
 
