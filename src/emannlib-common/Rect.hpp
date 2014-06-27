@@ -4,11 +4,8 @@
 #include <inttypes.h>
 #include <vector>
 
-#define GLM_FORCE_RADIANS
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_precision.hpp>
-#include <glm/gtc/type_ptr.hpp>
+#include "Vector.hpp"
+
 
 namespace emannlib
 {
@@ -35,12 +32,12 @@ namespace emannlib
 			if (y1 > y) y1 = y;
 			if (y2 < y) y2 = y;
 		}
-		void Include(glm::vec2 point)
+		void Include(Vec2<T> point)
 		{
 			Include((T)point.x, (T)point.y)
 		}
 
-		void Include(const std::vector<glm::vec2>& points)
+		void Include(const std::vector<Vec2<T>>& points)
 		{
 			for (auto p : points)
 			{
