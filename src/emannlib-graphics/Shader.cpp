@@ -22,7 +22,7 @@ Purpose       :
 */
 
 #include "Shader.hpp"
-#include "../emannlib-utility/AutoProfile.hpp"
+#include "../emannlib-common/AutoProfile.hpp"
 
 #include <fstream>
 #include <sstream>

@@ -2,7 +2,7 @@
 #define __texture_h__
 
 #include "../emannlib-math/Math.hpp"
-#include "../emannlib-utility/AutoProfile.hpp"
+#include "../emannlib-common/AutoProfile.hpp"
 #include "../emannlib-graphics/Bitmap.hpp"
 
 #include <inttypes.h>

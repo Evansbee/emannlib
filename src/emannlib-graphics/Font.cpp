@@ -1,6 +1,6 @@
 #include "Font.hpp"
 #include "../emannlib-math/Math.hpp"
-#include "../emannlib-utility/AutoProfile.hpp"
+#include "../emannlib-common/AutoProfile.hpp"
 
 #include "ftglyph.h"
 

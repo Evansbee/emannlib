@@ -1,7 +1,7 @@
 #include "Bitmap.hpp"
 #include "../emannlib-filesystem/FileSystemAccess.hpp"
-#include "../emannlib-utility/Assert.hpp"
-#include "../emannlib-utility/AutoProfile.hpp"
+#include "../emannlib-common/Assert.hpp"
+#include "../emannlib-common/AutoProfile.hpp"
 #include "../emannlib-math/Math.hpp"
 
 #include "stb_image.h"

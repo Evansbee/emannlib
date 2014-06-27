@@ -2,9 +2,9 @@
 #include "Entity.hpp"
 #include "Event.hpp"
 
-#include "../emannlib-utility/AutoProfile.hpp"
-#include "../emannlib-utility/RunTime.hpp"
-#include "../emannlib-utility/Task.hpp"
+#include "../emannlib-common/AutoProfile.hpp"
+#include "../emannlib-common/RunTime.hpp"
+#include "../emannlib-common/Task.hpp"
 
 
 

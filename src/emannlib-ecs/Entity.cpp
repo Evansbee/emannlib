@@ -22,7 +22,7 @@ Purpose       :
 */
 
 #include "Entity.hpp"
-#include "../emannlib-utility/Autoprofile.hpp"
+#include "../emannlib-common/Autoprofile.hpp"
 
 namespace emannlib
 {

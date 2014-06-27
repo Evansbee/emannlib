@@ -2,7 +2,7 @@
 
 #include "FileSystemAccess.hpp"
 #include "Path.hpp"
-#include "../emannlib-utility/AutoProfile.hpp"
+#include "../emannlib-common/AutoProfile.hpp"
 
 #include <cstdlib>
 

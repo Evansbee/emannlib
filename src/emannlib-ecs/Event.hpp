@@ -34,7 +34,7 @@ Purpose       :
 #include <map>
 #include <unordered_map>
 
-#include "../emannlib-utility/AutoProfile.hpp"
+#include "../emannlib-common/AutoProfile.hpp"
 
 
 namespace emannlib

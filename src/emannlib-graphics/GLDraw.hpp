@@ -19,7 +19,7 @@ namespace emannlib
 	{
 		void Draw(std::shared_ptr<Texture> texture, Area area);
 		
-		void DrawLine(const glm::vec2& start, cosnt glm::vec2& stop);
+		void DrawLine(const glm::vec2& start, const glm::vec2& stop);
 		
 		void DrawRect(const Area& sq);
 		void DrawRextStroke(const Area& sq);

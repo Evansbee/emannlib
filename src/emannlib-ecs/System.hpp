@@ -3,8 +3,8 @@
 
 #include "Entity.hpp"
 #include "Event.hpp"
-#include "../emannlib-utility/RunTime.hpp"
-#include "../emannlib-utility/Task.hpp"
+#include "../emannlib-common/RunTime.hpp"
+#include "../emannlib-common/Task.hpp"
 #include "../emannlib-graphics/OpenGLStateMachine.hpp"
 
 

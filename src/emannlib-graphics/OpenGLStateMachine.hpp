@@ -1,7 +1,7 @@
 #ifndef __OPEN_GL_STATE_MACHINE_HPP__
 #define __OPEN_GL_STATE_MACHINE_HPP__
 
-#include "../emannlib-utility/Singleton.hpp"
+#include "../emannlib-common/Singleton.hpp"
 
 #include <stack>
 #include <memory>
