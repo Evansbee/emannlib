@@ -11,15 +11,17 @@ namespace emannlib
 	struct VECTOR_TRAIT {
 		typedef float DISTANCE_TYPE;
 	};
+	
 	template<>
 	struct VECTOR_TRAIT < double > {
 		typedef double DISTANCE_TYPE;
 	};
 
 	template<>
-	struct VECTOR_TRAIT < int32_t > {
-		typedef float DISTANCE_TYPE;
+	struct VECTOR_TRAIT < long double > {
+		typedef long double DISTANCE_TYPE;
 	};
+
 
 	template <typename T>
 	class Vec2
@@ -28,11 +30,9 @@ namespace emannlib
 		T x;
 		T y;
 
-		//TMP Junk
+		//For Return Type Junk
 	public:
-		typedef T TYPE;
-		typedef T value_type;
-		typedef typename VECTOR_TRAIT<T>::DISTANCE_TYPE DISTANCE_TYPE :
+		typedef typename VECTOR_TRAIT<T>::DISTANCE_TYPE DISTANCE_TYPE;
 
 
 	public:

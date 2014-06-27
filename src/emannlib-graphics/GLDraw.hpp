@@ -7,11 +7,6 @@
 #include "Texture.hpp"
 #include "Area.hpp"
 
-#define GLM_FORCE_RADIANS
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_precision.hpp>
-#include <glm/gtc/type_ptr.hpp>
 
 namespace emannlib
 {
