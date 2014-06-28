@@ -39,10 +39,14 @@ namespace emannlib
 		uint32_t GetViewportWidth() const;
 		uint32_t GetViewportHeight() const;
 
+		void SetWindowPosition(uint32_t x, uint32_t y) const;
+
+
 		GLFWwindow * GetActiveWindow() const;
 		void SetActiveWindow(GLFWwindow *activeWindow);
 
-		void ClearBuffers() const;
+		void BeginDraw() const;
+		void EndDraw() const;
 		//transforms:
 	public:
 		void PushModelView();

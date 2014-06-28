@@ -7,8 +7,50 @@ namespace emannlib
 		m_ViewportWidth(viewportWidth),
 		m_ActiveWindow(activeWindow)
 	{
-		m_CurrentTransform.m_ModelViewMatrix.push(glm::mat4());
-		m_CurrentTransform.m_ProjectionMatrix.push(glm::mat4());
+
+		if (glfwInit() == GL_TRUE)
+		{
+
+			glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
+			glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+			glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+			glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+			glfwSwapInterval(1);
+			m_ActiveWindow = glfwCreateWindow(m_ViewportWidth, m_ViewportHeight, "Rando Windo", NULL, NULL);
+
+			if (!m_ActiveWindow) /* rgba, depth, stencil */
+			{
+				glfwTerminate();
+				return ;
+			}
+			glfwMakeContextCurrent(m_ActiveWindow);
+
+			//glfwSetInputMode(m_ActiveWindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+
+			glewExperimental = GL_TRUE; //stops glew crashing on OSX :-/
+
+			GLenum err = glewInit();
+			if (err != GLEW_OK)
+			{
+				glfwTerminate();
+				return;
+			}
+
+			if (!GLEW_VERSION_3_2)
+			{
+				glfwTerminate();
+				return;
+			}
+
+
+			new OpenGLStateMachine(m_ActiveWindow, m_ViewportHeight, m_ViewportWidth);
+
+			ModelViewLoadIdentity();
+
+			return ;
+		}
+
+		
 		glEnable(GL_TEXTURE_2D);
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -37,12 +79,20 @@ namespace emannlib
 	{
 		m_ActiveWindow = activeWindow;
 	}
-	void OpenGLStateMachine::ClearBuffers() const
+	void OpenGLStateMachine::BeginDraw() const
 	{
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 		
-		
+	void OpenGLStateMachine::EndDraw() const
+	{
+		glfwSwapBuffers(m_ActiveWindow);
+	}
+
+	void OpenGLStateMachine::SetWindowPosition(uint32_t x, uint32_t y) const
+	{
+		glfwSetWindowPos(m_ActiveWindow, x, y);
+	}
 	void OpenGLStateMachine::PushModelView()
 	{
 		m_CurrentTransform.m_ModelViewMatrix.push(m_CurrentTransform.m_ModelViewMatrix.top());
