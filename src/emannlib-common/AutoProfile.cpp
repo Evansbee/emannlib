@@ -26,7 +26,7 @@ namespace emannlib
 #ifdef _DEBUG
 	ProfileNode * AutoProfile::ms_RootProfileNode = new ProfileNode("Application", true);
 	ProfileNode * AutoProfile::ms_CurrentProfileNode = ms_RootProfileNode;
-#endif
+
 
 	
 	ProfileNode::ProfileNode(){}
@@ -177,7 +177,7 @@ namespace emannlib
 	void ProfileNode::SetCurrentlyActive() { m_CurrentlyActive = true; }
 	void ProfileNode::ClearCurrentlyActive() { m_CurrentlyActive = false; }
 
-
+#endif
 	AutoProfile::AutoProfile(const std::string& name)
 	{
 #ifdef _DEBUG
