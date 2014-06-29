@@ -15,10 +15,11 @@
 
 namespace emannlib {
 
-#ifdef _DEBUG
+
 
 	class ProfileNode
 	{
+#ifdef _DEBUG
 	public:
 
 		ProfileNode();
@@ -70,8 +71,9 @@ namespace emannlib {
 
 		double m_CurrentStartTime;
 		bool m_CurrentlyActive;
-	};
 #endif
+	};
+
 
 	class AutoProfile
 	{
