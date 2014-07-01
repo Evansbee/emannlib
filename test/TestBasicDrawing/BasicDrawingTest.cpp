@@ -7,50 +7,110 @@
 #include "emannlib-common\Time.hpp"
 #include "emannlib-math\Math.hpp"
 
-class Test : public emannlib::Singleton < Test >
+class Particle
 {
+public:
+	Particle()
+	{
+		x = float(rand() % 100) - 25.0f;
+		y = float(rand() % 100) - 25.0f;
+		vx = float(rand() % 150) - 75.0f;
+		vy = float(rand() % 150) - 75.0f;
+		r = float(rand()) / float(RAND_MAX);
+		g = float(rand()) / float(RAND_MAX);
+		b = float(rand()) / float(RAND_MAX);
+
+		size = float(rand() % 15);
+
+		ttl = float(rand() % 50);
+	}
+	Particle(float nx, float ny)
+	{
+		x = nx;
+		y = ny;
+		vx = float(rand() % 150) - 75.0f;
+		vy = float(rand() % 150) - 75.0f;
+		ttl = float(rand() % 50);
+		size = float(rand() % 50);
+
+		r = float(rand()) / float(RAND_MAX);
+		g = float(rand()) / float(RAND_MAX);
+		b = float(rand()) / float(RAND_MAX);
+	}
+
+	void Update(double dt)
+	{
+		x += vx * (float) dt;
+		y += vy * (float) dt;
+		ttl -= (float) dt;
+	}
+
+
+	float x, y;
+	float vx, vy;
+	float ttl;
+
+	float r, g, b;
+
+	float size;
 
 };
 
+
 int main()
 {
-	new Test;
-	new emannlib::OpenGLStateMachine(640,480);
+	std::vector<Particle *> pList;
+
+	new emannlib::OpenGLStateMachine(640, 480);
 
 	auto start = emannlib::Time().GetCurrentTime();
+	auto current = emannlib::Time().GetCurrentTime();
+	auto last = current;
 
-	float lineWidth = 0.0;
-	int sides = 0;
+	int i = 0;
+	double dt = 0;
+	double frameTime = 0;
+	double frameCount = 0;
 	while (!emannlib::OpenGLStateMachine::GetSingleton().WindowShouldClose())
 	{
-		lineWidth += 0.05;
-		lineWidth = emannlib::Math<float>::FMod(lineWidth, 10.0);
-		auto current = emannlib::Time().GetCurrentTime();
+		frameCount++;
+		pList.push_back(new  Particle());
+
+		i++;
+
+		current = emannlib::Time().GetCurrentTime();
 		emannlib::OpenGLStateMachine::GetSingleton().BeginDraw();
-		
-		
-		emannlib::OpenGLStateMachine::GetSingleton().PushModelView();
-		emannlib::OpenGLStateMachine::GetSingleton().Translate(glm::vec2(200.0 * (emannlib::Math<float>::Sin(current - start)), 0));
-		
-		emannlib::gl::Color(1.0, 0.2, 0.9);
-		emannlib::gl::DrawCirle(glm::vec2(0, 0), 50.0f);
-		
-		emannlib::gl::Color(1.0, 1.0, 1.0);
-		emannlib::gl::SetLineWidth(lineWidth);
-		emannlib::gl::DrawCirleStroke(glm::vec2(0, 0), 50.0f, 8);
-		
-		emannlib::OpenGLStateMachine::GetSingleton().PopModelView();
+		for (auto p : pList)
+		{
+			emannlib::OpenGLStateMachine::GetSingleton().PushModelView();
+			emannlib::OpenGLStateMachine::GetSingleton().Translate(glm::vec2(p->x, p->y));
+			emannlib::gl::Color(p->r, p->g, p->b);
+			emannlib::gl::DrawCirle(glm::vec2(0, 0), p->size, 50);
+			emannlib::OpenGLStateMachine::GetSingleton().PopModelView();
+		}
 
+		dt = current - last;
+		frameTime += dt;
+		if (frameTime > 1.0)
+		{
+			std::cout << "FPS: " << frameCount << " Elements: "<< pList.size() <<std::endl;
+			frameTime = 0.0;
+			frameCount = 0;
+		}
+		for (auto p = pList.begin(); p != pList.end();)
+		{
+			(*p)->Update(dt);
+			if ((*p)->ttl < 0.0)
+			{
+				delete * p;
+				p = pList.erase(p);
+			}
+			else {
+				++p;
+			}
+		}
 
-		emannlib::OpenGLStateMachine::GetSingleton().PushModelView();
-		emannlib::OpenGLStateMachine::GetSingleton().Translate(glm::vec2(0, 150.0 * (emannlib::Math<float>::Cos(current - start))));
-		
-		emannlib::Area a;
-		a.m_UpperLeft = glm::vec2(-20, 20);
-		a.m_LowerRight = glm::vec2(20, -20);
-		emannlib::gl::Color(0, 0.2, 0.9);
-		emannlib::gl::DrawRect(a);
-		emannlib::OpenGLStateMachine::GetSingleton().PopModelView();
+		last = current;
 
 		emannlib::OpenGLStateMachine::GetSingleton().EndDraw();
 		emannlib::OpenGLStateMachine::GetSingleton().MessagePump();

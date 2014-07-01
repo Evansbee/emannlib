@@ -49,7 +49,7 @@ namespace emannlib
 			glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 			glDisableClientState(GL_VERTEX_ARRAY);
 		}
-		void DrawRextStroke(const Area& sq)	
+		void DrawRectStroke(const Area& sq)	
 		{
 			GLfloat verts[8];
 			verts[0] = sq.m_UpperLeft.x;	verts[1] = sq.m_UpperLeft.y;

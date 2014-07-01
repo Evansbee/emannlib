@@ -17,7 +17,7 @@ namespace emannlib
 		void DrawLine(const glm::vec2& start, const glm::vec2& stop);
 		
 		void DrawRect(const Area& sq);
-		void DrawRextStroke(const Area& sq);
+		void DrawRectStroke(const Area& sq);
 
 		void DrawCirle(const glm::vec2& center, float radius, int numSides = 360);
 		void DrawCirleStroke(const glm::vec2& center, float radius, int numSides = 360);
