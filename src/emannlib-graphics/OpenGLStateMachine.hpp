@@ -28,11 +28,10 @@ namespace emannlib
 	};
 
 
-	class OpenGLStateMachine : public Singleton < OpenGLStateMachine >
+	class OpenGLStateMachine : public Singleton <OpenGLStateMachine>
 	{
 	public:
-		OpenGLStateMachine(GLFWwindow *activeWindow, uint32_t viewportWidth, uint32_t viewportHeight);
-
+		OpenGLStateMachine(uint32_t viewportWidth, uint32_t viewportHeight);
 		//higher level stuff
 	public:
 		void SetViewport(uint32_t width, uint32_t height);
@@ -41,6 +40,7 @@ namespace emannlib
 
 		void SetWindowPosition(uint32_t x, uint32_t y) const;
 
+		bool WindowShouldClose() const;
 
 		GLFWwindow * GetActiveWindow() const;
 		void SetActiveWindow(GLFWwindow *activeWindow);
@@ -73,12 +73,14 @@ namespace emannlib
 		void Ortho2D(float left, float right, float bottom, float top, float znear = -1.0f, float zfar = 1.0f);
 		void Perspective(float fovy, float aspect, float znear, float zfar);
 
+		void MessagePump() const;
+
 	private:
 		void updateMatrixState();
 	private:
 		emannlib::Transform m_CurrentTransform;
-		uint32_t m_ViewportWidth;
-		uint32_t m_ViewportHeight;
+		float m_ViewportWidth;
+		float m_ViewportHeight;
 		GLFWwindow *m_ActiveWindow;
 	};
 }

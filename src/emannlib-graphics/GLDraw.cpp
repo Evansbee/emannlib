@@ -40,13 +40,13 @@ namespace emannlib
 		void DrawRect(const Area& sq)
 		{
 			GLfloat verts[8];
-			verts[0] = sq.m_UpperLeft.x;	verts[1] = sq.m_UpperLeft.y;
-			verts[2] = sq.m_LowerRight.x;	verts[3] = sq.m_UpperLeft.y;
+			verts[0] = sq.m_LowerRight.x;	verts[1] = sq.m_UpperLeft.y;
+			verts[2] = sq.m_UpperLeft.x;	verts[3] = sq.m_UpperLeft.y;
 			verts[4] = sq.m_LowerRight.x;	verts[5] = sq.m_LowerRight.y;
 			verts[6] = sq.m_UpperLeft.x;	verts[7] = sq.m_LowerRight.y;
 			glEnableClientState(GL_VERTEX_ARRAY);
 			glVertexPointer(2, GL_FLOAT, 0, verts);
-			glDrawArrays(GL_LINE_LOOP, 0, 4);
+			glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 			glDisableClientState(GL_VERTEX_ARRAY);
 		}
 		void DrawRextStroke(const Area& sq)	
@@ -95,9 +95,7 @@ namespace emannlib
 			}
 			if (numSides < 2) numSides = 2;
 
-			GLfloat *verts = new float[(numSides + 2) * 2];
-			verts[0] = center.x;
-			verts[1] = center.y;
+			GLfloat *verts = new float[numSides * 2];
 			for (int s = 0; s < numSides; s++) {
 				float t = s / (float) numSides * 2.0f * Math<float>::PI;
 				verts[s * 2 + 0] = center.x + Math<float>::Cos(t) * radius;
@@ -117,5 +115,19 @@ namespace emannlib
 
 		void DrawPolyLine(const std::vector<glm::vec2>& line){}
 		void DrawClosedPolyLine(const std::vector<glm::vec2>& line){}
+
+		void Color(float r, float g, float b, float a)
+		{
+			glColor4f(r, g, b, a);
+		}
+
+		void SetLineWidth(float width)
+		{
+			glLineWidth(width);
+		}
+		void SetPointSize(float size)
+		{
+			glPointSize(size);
+		}
 	}
 }

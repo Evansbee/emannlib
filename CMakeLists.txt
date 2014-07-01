@@ -24,6 +24,7 @@ endif (MSVC)
 
 # this might work
 link_directories(${PROJECT_SOURCE_DIR}/3rdparty/lib)
+link_directories(${PROJECT_SOURCE_DIR}/lib)
 
 # we know this works, sets the 3rd party include directories for
 # all projects

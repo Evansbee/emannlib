@@ -2,11 +2,14 @@
 
 namespace emannlib
 {
-	OpenGLStateMachine::OpenGLStateMachine(GLFWwindow *activeWindow, uint32_t viewportWidth, uint32_t viewportHeight) :
+	
+
+	OpenGLStateMachine::OpenGLStateMachine(uint32_t viewportWidth, uint32_t viewportHeight) :
 		m_ViewportHeight(viewportHeight),
-		m_ViewportWidth(viewportWidth),
-		m_ActiveWindow(activeWindow)
+		m_ViewportWidth(viewportWidth)
 	{
+		m_CurrentTransform.m_ModelViewMatrix.push(glm::mat4());
+		m_CurrentTransform.m_ProjectionMatrix.push(glm::mat4());
 
 		if (glfwInit() == GL_TRUE)
 		{
@@ -21,7 +24,7 @@ namespace emannlib
 			if (!m_ActiveWindow) /* rgba, depth, stencil */
 			{
 				glfwTerminate();
-				return ;
+				return;
 			}
 			glfwMakeContextCurrent(m_ActiveWindow);
 
@@ -42,20 +45,26 @@ namespace emannlib
 				return;
 			}
 
-
-			new OpenGLStateMachine(m_ActiveWindow, m_ViewportHeight, m_ViewportWidth);
-
 			ModelViewLoadIdentity();
 
-			return ;
+			SetViewport(m_ViewportWidth, m_ViewportHeight);
+			Ortho2D(-m_ViewportWidth / 2., m_ViewportWidth / 2., -m_ViewportHeight / 2., m_ViewportHeight / 2., 1.f, -1.f);
 		}
 
-		
+
 		glEnable(GL_TEXTURE_2D);
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
 
+	bool OpenGLStateMachine::WindowShouldClose() const
+	{
+		return glfwWindowShouldClose(m_ActiveWindow);
+	}
+	void OpenGLStateMachine::MessagePump() const
+	{
+		glfwPollEvents();
+	}
 	void OpenGLStateMachine::SetViewport(uint32_t width, uint32_t height)
 	{
 		m_ViewportHeight = height;

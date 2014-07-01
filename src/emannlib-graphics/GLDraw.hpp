@@ -28,6 +28,11 @@ namespace emannlib
 
 		void DrawPolyLine(const std::vector<glm::vec2>& line);
 		void DrawClosedPolyLine(const std::vector<glm::vec2>& line);
+
+		void Color(float r, float g, float b, float a = 1.0);
+
+		void SetLineWidth(float width);
+		void SetPointSize(float size);
 	}
 }
 

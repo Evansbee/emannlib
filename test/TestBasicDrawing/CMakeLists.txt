@@ -8,4 +8,4 @@ file(GLOB ALL_SOURCE_FILES
 
 add_executable(BasicDrawingTests ${ALL_SOURCE_FILES})
 
-target_link_libraries(BasicDrawingTests PUBLIC ${FREETYPE_LIBRARY} ${GLEW_LIBRARY} ${GLFW_LIBRARY})
+target_link_libraries(BasicDrawingTests PUBLIC ${FREETYPE_LIBRARY} ${GLEW_LIBRARY} ${GLFW_LIBRARY} emannlib-graphics.lib emannlib-math.lib emannlib-common.lib opengl32.lib)
