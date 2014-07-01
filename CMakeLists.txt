@@ -28,6 +28,7 @@ link_directories(${PROJECT_SOURCE_DIR}/3rdparty/lib)
 # we know this works, sets the 3rd party include directories for
 # all projects
 include_directories(${PROJECT_SOURCE_DIR}/3rdparty/include)
+include_directories(${PROJECT_SOURCE_DIR}/src)
 
 #find all relevant directories
 #
