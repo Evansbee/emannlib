@@ -31,9 +31,18 @@ link_directories(${PROJECT_SOURCE_DIR}/lib)
 include_directories(${PROJECT_SOURCE_DIR}/3rdparty/include)
 include_directories(${PROJECT_SOURCE_DIR}/src)
 
-#find all relevant directories
-#
 
+
+find_package(OpenGL REQUIRED)
+include_directories(${OpenGL_INCLUDE_DIRS})
+link_directories(${OpenGL_LIBRARY_DIRS})
+add_definitions(${OpenGL_DEFINITIONS})
+if(NOT OPENGL_FOUND)
+    message(ERROR " OPENGL not found!")
+endif(NOT OPENGL_FOUND)
+
+
+#find all relevant directories
 set(GLFW_LIBRARY ${PROJECT_SOURCE_DIR}/3rdparty/lib/glfw3.lib)
 set(GLEW_LIBRARY ${PROJECT_SOURCE_DIR}/3rdparty/lib/glew32s.lib)
 set(FREETYPE_LIBRARY ${PROJECT_SOURCE_DIR}/3rdparty/lib/freetype253.lib)
