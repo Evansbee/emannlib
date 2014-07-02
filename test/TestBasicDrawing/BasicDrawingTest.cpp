@@ -85,7 +85,9 @@ int main()
 			emannlib::OpenGLStateMachine::GetSingleton().PushModelView();
 			emannlib::OpenGLStateMachine::GetSingleton().Translate(glm::vec2(p->x, p->y));
 			emannlib::gl::Color(p->r, p->g, p->b);
-			emannlib::gl::DrawCirle(glm::vec2(0, 0), p->size, 50);
+			//emannlib::gl::DrawCirle(glm::vec2(0, 0), p->size, 50);
+
+			
 			emannlib::OpenGLStateMachine::GetSingleton().PopModelView();
 		}
 
@@ -111,6 +113,12 @@ int main()
 		}
 
 		last = current;
+			
+			emannlib::OpenGLStateMachine::GetSingleton().PushModelView();
+				emannlib::gl::Color(1.0,1.0,1.0);
+				emannlib::gl::DrawVector(glm::vec2(0, 0), glm::vec2(100, 0), 5.0, 10.0);
+			emannlib::OpenGLStateMachine::GetSingleton().PopModelView();
+
 
 		emannlib::OpenGLStateMachine::GetSingleton().EndDraw();
 		emannlib::OpenGLStateMachine::GetSingleton().MessagePump();

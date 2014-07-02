@@ -111,7 +111,35 @@ namespace emannlib
 
 		void DrawCoordinateFrame(const glm::vec2& center, float axisLength, float headLength, float headWidth){}
 
-		void DrawVector(const glm::vec2& start, const glm::vec2& end, float headLength, float headWidth){}
+		void DrawVector(const glm::vec2& start, const glm::vec2& end, float headLength, float headWidth)
+		{
+			float VectorWidth = 1.0;
+			float VectorLength = 50.0;// (start - end).length();
+
+
+			float verts[18];
+	
+			int i = 0;
+			verts[i * 2] = 0.0;				verts[i * 2 + 1] = VectorWidth / 2.0; i++;
+			verts[i * 2] = 0.0;				verts[i * 2 + 1] = -VectorWidth / 2.0; i++;
+			verts[i * 2] = VectorLength;	verts[i * 2 + 1] = VectorWidth / 2.0; i++;
+
+			verts[i * 2] = VectorLength;	verts[i * 2 + 1] = VectorWidth / 2.0; i++;
+			verts[i * 2] = 0.0;				verts[i * 2 + 1] = -VectorWidth / 2.0; i++;
+			verts[i * 2] = VectorLength;	verts[i * 2 + 1] = -VectorWidth / 2.0; i++;
+
+			verts[i * 2] = VectorLength; verts[i * 2 + 1] = headWidth / 2.0; i++;
+			verts[i * 2] = VectorLength; verts[i * 2 + 1] = -headWidth / 2.0; i++;
+			verts[i * 2] = VectorLength+headLength; verts[i * 2 + 1] = 0; i++;
+
+	
+			
+
+			glEnableClientState(GL_VERTEX_ARRAY);
+			glVertexPointer(2, GL_FLOAT, 0, verts);
+			glDrawArrays(GL_TRIANGLES, 0, 9);
+			glDisableClientState(GL_VERTEX_ARRAY);
+		}
 
 		void DrawPolyLine(const std::vector<glm::vec2>& line){}
 		void DrawClosedPolyLine(const std::vector<glm::vec2>& line){}
