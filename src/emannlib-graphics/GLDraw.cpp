@@ -29,16 +29,36 @@ namespace emannlib
 		
 		}
 
-		void DrawLine(const glm::vec2& start, const glm::vec2& stop)
+		void DrawLine(const Vec2f& start, const Vec2f& stop, float strokeWidth)
 		{
 			AUTO_PROFILE("gl::DrawLine");
-			float lineVerts[2 * 2];
+						
+			Vec2f spanVector = stop - start;
+
+			float bodyLength = spanVector.Length();
+
+			float radians = (spanVector.x > 0.0f) ? Math<float>::ATan(spanVector.y / spanVector.x) : (Math<float>::ATan(spanVector.y / spanVector.x) + Math<float>::PI);
+
+			float verts[12];
+			
+			verts[0 * 2] = 0.0f;				verts[0 * 2 + 1] = strokeWidth / 2.0f;
+			verts[1 * 2] = 0.0f;				verts[1 * 2 + 1] = -strokeWidth / 2.0f;
+			verts[2 * 2] = bodyLength;	        verts[2 * 2 + 1] = strokeWidth / 2.0f;
+
+			verts[3 * 2] = bodyLength;			verts[3 * 2 + 1] = strokeWidth / 2.0f;
+			verts[4 * 2] = 0.0f;				verts[4 * 2 + 1] = -strokeWidth / 2.0f;
+			verts[5 * 2] = bodyLength;			verts[5 * 2 + 1] = -strokeWidth / 2.0f;
+
+			OpenGLStateMachine::GetSingleton().PushModelView();
+			OpenGLStateMachine::GetSingleton().Rotate(radians);
+			OpenGLStateMachine::GetSingleton().Translate(glm::vec2(start.x, start.y));
+
 			glEnableClientState(GL_VERTEX_ARRAY);
-			glVertexPointer(2, GL_FLOAT, 0, lineVerts);
-			lineVerts[0] = start.x; lineVerts[1] = start.y;
-			lineVerts[2] = stop.x; lineVerts[3] = stop.y;
-			glDrawArrays(GL_LINES, 0, 2);
+			glVertexPointer(2, GL_FLOAT, 0, verts);
+			glDrawArrays(GL_TRIANGLES, 0, 6);
 			glDisableClientState(GL_VERTEX_ARRAY);
+			OpenGLStateMachine::GetSingleton().AddTrianglesToFrameCount(3);
+			OpenGLStateMachine::GetSingleton().PopModelView();
 		}
 
 		void DrawRect(const Area& sq)
@@ -131,18 +151,18 @@ namespace emannlib
 			
 			float verts[18];
 	
-			int i = 0;
-			verts[i * 2] = 0.0f;				verts[i * 2 + 1] = vectorWidth / 2.0f; i++;
-			verts[i * 2] = 0.0f;				verts[i * 2 + 1] = -vectorWidth / 2.0f; i++;
-			verts[i * 2] = bodyLength;	verts[i * 2 + 1] = vectorWidth / 2.0f; i++;
+			
+			verts[0 * 2] = 0.0f;				verts[0 * 2 + 1] = vectorWidth / 2.0f; 
+			verts[1 * 2] = 0.0f;				verts[1 * 2 + 1] = -vectorWidth / 2.0f;
+			verts[2 * 2] = bodyLength;	        verts[2 * 2 + 1] = vectorWidth / 2.0f; 
 
-			verts[i * 2] = bodyLength;	verts[i * 2 + 1] = vectorWidth / 2.0f; i++;
-			verts[i * 2] = 0.0f;				verts[i * 2 + 1] = -vectorWidth / 2.0f; i++;
-			verts[i * 2] = bodyLength;	verts[i * 2 + 1] = -vectorWidth / 2.0f; i++;
+			verts[3 * 2] = bodyLength;			verts[3 * 2 + 1] = vectorWidth / 2.0f; 
+			verts[4 * 2] = 0.0f;				verts[4 * 2 + 1] = -vectorWidth / 2.0f; 
+			verts[5 * 2] = bodyLength;			verts[5 * 2 + 1] = -vectorWidth / 2.0f; 
 
-			verts[i * 2] = bodyLength; verts[i * 2 + 1] = headWidth / 2.0f; i++;
-			verts[i * 2] = bodyLength; verts[i * 2 + 1] = -headWidth / 2.0f; i++;
-			verts[i * 2] = bodyLength + headLength; verts[i * 2 + 1] = 0.0f; i++;
+			verts[6 * 2] = bodyLength;			verts[6 * 2 + 1] = headWidth / 2.0f; 
+			verts[7 * 2] = bodyLength;			verts[7 * 2 + 1] = -headWidth / 2.0f; 
+			verts[8 * 2] = bodyLength + headLength; verts[8 * 2 + 1] = 0.0f; 
 
 			OpenGLStateMachine::GetSingleton().PushModelView();
 			OpenGLStateMachine::GetSingleton().Rotate(radians);
