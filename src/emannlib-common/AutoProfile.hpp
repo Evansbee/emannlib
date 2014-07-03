@@ -97,6 +97,7 @@ namespace emannlib {
 
 #ifdef _DEBUG
 #define AUTO_PROFILE(x) emannlib::AutoProfile autoprofilehelper( x )
+
 #else
 #define AUTO_PROFILE(x) 
 #endif

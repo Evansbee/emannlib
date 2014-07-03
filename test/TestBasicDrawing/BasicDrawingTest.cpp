@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include "emannlib-graphics\OpenGLStateMachine.hpp"
-#include "emannlib-graphics\GLDraw.hpp"
+#include "emannlib-graphics\OpenGLWindow.hpp"
+//#include "emannlib-graphics\GLDraw.hpp"
 
 #include "emannlib-common/Singleton.hpp"
 #include "emannlib-common\Time.hpp"
@@ -60,11 +60,11 @@ public:
 };
 
 
-int main()
+int main(int argc, char ** argv)
 {
 	std::vector<Particle *> pList;
 	pList.reserve(1000);
-	new emannlib::OpenGLStateMachine(1000,600);
+	new emannlib::OpenGLWindow(1000,600,argv[0]);
 
 	auto start = emannlib::Time().GetCurrentTime();
 	auto current = emannlib::Time().GetCurrentTime();
@@ -74,47 +74,47 @@ int main()
 	double dt = 0;
 	double frameTime = 0;
 	double frameCount = 0;
-	while (!emannlib::OpenGLStateMachine::GetSingleton().WindowShouldClose())
+	while (!emannlib::OpenGLWindow::GetSingleton().GetWindowCloseClicked())
 	{
 		frameCount++;
 		
 		if (pList.size() < 800)
 		{
-			pList.push_back(new  Particle());
-			pList.push_back(new  Particle());
+			pList.push_back(new Particle());
+			pList.push_back(new Particle());
 		}
 
 		i++;
 
 		current = emannlib::Time().GetCurrentTime();
-		emannlib::OpenGLStateMachine::GetSingleton().BeginDraw(.9f,.9f,.9f);
-		emannlib::OpenGLStateMachine::GetSingleton().ClearFrameTriangleCount();
+		emannlib::OpenGLWindow::GetSingleton().BeginDraw(.9f, .9f, .9f);
+		//emannlib::OpenGLWindow::GetSingleton().ClearFrameTriangleCount();
 		for (auto p : pList)
 		{
-			emannlib::OpenGLStateMachine::GetSingleton().PushModelView();
-			emannlib::OpenGLStateMachine::GetSingleton().Translate(glm::vec2(p->x, p->y));
-			emannlib::gl::Color(p->r, p->g, p->b);
-			emannlib::gl::DrawCirle(emannlib::Vec2f(0, 0), p->size);
+			emannlib::OpenGLWindow::GetSingleton().PushModelView();
+			emannlib::OpenGLWindow::GetSingleton().Translate(glm::vec2(p->x, p->y));
+			emannlib::OpenGLWindow::GetSingleton().SetColor(p->r, p->g, p->b);
+			emannlib::OpenGLWindow::GetSingleton().DrawCirle(emannlib::Vec2f(0, 0), p->size);
 
-			emannlib::gl::Color(1.0-p->r,1.0- p->g, 1.0-p->b);
-			emannlib::gl::DrawVector(emannlib::Vec2f(0, 0), emannlib::Vec2f(p->vx, p->vy),20.0, 1.0, 6.0f, 6.0f);
+			emannlib::OpenGLWindow::GetSingleton().SetColor(1.0 - p->r, 1.0 - p->g, 1.0 - p->b);
+			emannlib::OpenGLWindow::GetSingleton().DrawVector(emannlib::Vec2f(0, 0), emannlib::Vec2f(p->vx, p->vy), 20.0, 1.0, 6.0f, 6.0f);
 
 
-			emannlib::OpenGLStateMachine::GetSingleton().PopModelView();
+			emannlib::OpenGLWindow::GetSingleton().PopModelView();
 		}
 
 		dt = current - last;
 		frameTime += dt;
 		if (frameTime > 1.0)
 		{
-			std::cout << "FPS: " << frameCount << " Triangles: " << emannlib::OpenGLStateMachine::GetSingleton().GetFrameTriangleCount() << std::endl;
+			std::cout << "FPS: " << frameCount << " Triangles: " <<std::endl;
 			frameTime = 0.0;
 			frameCount = 0;
 		}
 
-		float width = (float)emannlib::OpenGLStateMachine::GetSingleton().GetViewportWidth() / 1.75;
-		float height = (float)emannlib::OpenGLStateMachine::GetSingleton().GetViewportHeight() / 1.75;
-		for (auto p = pList.begin(); p != pList.end();)
+		float width = (float) emannlib::OpenGLWindow::GetSingleton().GetViewportWidth() / 1.75;
+		float height = (float) emannlib::OpenGLWindow::GetSingleton().GetViewportHeight() / 1.75;
+		for (auto &p = pList.begin(); p != pList.end();)
 		{
 			(*p)->Update(dt);
 
@@ -139,8 +139,8 @@ int main()
 
 		last = current;
 			
-		emannlib::OpenGLStateMachine::GetSingleton().EndDraw();
-		emannlib::OpenGLStateMachine::GetSingleton().MessagePump();
+		emannlib::OpenGLWindow::GetSingleton().EndDraw();
+	
 	}
 
 	std::cout<<emannlib::AutoProfile::Report(80)<<std::endl;

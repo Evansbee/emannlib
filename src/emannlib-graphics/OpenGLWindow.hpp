@@ -23,7 +23,7 @@
 #include <glm/gtc/type_precision.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-class emannlib
+namespace emannlib
 {
 	class Transform
 	{
@@ -36,23 +36,23 @@ class emannlib
 	class OpenGLWindow : public Singleton < OpenGLWindow >
 	{
 	public:
-		OpenGLWindow(float width, float height, std::string& name);
+		OpenGLWindow(int newWidth, float newHeight, const std::string& name);
 
 		//window Management
 	public:
-		void SetWindowSize(float width, float height);
-		void SetWindowName(const std::string& name);
-		void SetViewportSize(float width, float height);
+		void SetWindowSize(int newWidth, int newHeight);
+		void SetWindowName(const std::string& newName);
+		void SetViewportSize(int newWidth, int newHeight);
 		void SetWindowPosition(float x, float y);
 		void SetFullscreen(bool fullScreen = true);
 
-		float GetWindowWidth() const;
-		float GetWindowHeight() const;
+		int GetWindowWidth() const;
+		int GetWindowHeight() const;
 
 		std::string GetWindowName() const;
 
-		float GetViewportWidth() const;
-		float GetViewportHeight() const;
+		int GetViewportWidth() const;
+		int GetViewportHeight() const;
 
 		float GetWindowXPosition() const;
 		float GetWindowYPosition() const;
@@ -89,6 +89,7 @@ class emannlib
 		void PushProjection();
 		void PopProjection();
 		void Ortho2D(float left, float right, float bottom, float top, float znear = -1.0f, float zfar = 1.0f);
+		void Ortho2DFromCenterAndExtents(const Vec2f& center, float newWidth, float newHeight);
 		void Perspective(float fovy, float aspect, float znear, float zfar);
 
 		void MessagePump() const;
@@ -98,10 +99,13 @@ class emannlib
 
 	private:
 		emannlib::Transform m_CurrentTransform;
-		float m_ViewportWidth;
-		float m_ViewPortHeight;
-		float m_WindowWidth;
-		float m_WindowHeight;
+		int m_ViewportWidth;
+		int m_ViewportHeight;
+		int m_WindowWidth;
+		int m_WindowHeight;
+		float m_ViewableWidth;
+		float m_ViewableHeight;
+		Vec2f m_CenterPoint;
 		bool m_FullScreen;
 
 		GLFWwindow *m_ActiveWindow;
@@ -120,12 +124,13 @@ class emannlib
 		void DrawPolyLine(const std::vector<Vec2f>& line);
 		void DrawClosedPolyLine(const std::vector<Vec2f>& line);
 		void DrawPoint(const Vec2f& location, float size=1.0);
-		void Color(float r, float g, float b, float a = 1.0);
+		void SetColor(float r, float g, float b, float a = 1.0);
 
-
+		//static callbacks
 	public:
-
-	}
+		static void FrameBufferSizeCallback(GLFWwindow *activeWindow, int newWidth, int newHeight);
+		static void WindowSizeCallback(GLFWwindow *activeWindow, int newWidth, int newHeight);
+	};
 }
 
 #endif
