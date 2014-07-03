@@ -1,17 +1,18 @@
 #include "OpenGLWindow.hpp"
 
+#include <iostream>
+
 #include "../emannlib-common/AutoProfile.hpp"
 
 namespace emannlib
 {
-	/*emannlib::Transform m_CurrentTransform;
-	int m_ViewportWidth;
-	int m_ViewPortHeight;
-	int m_WindowWidth;
-	int m_WindowHeight;
-	bool m_FullScreen;
+	
+	void APIENTRY OpenGLErrorCallback(GLenum _source,
+							 GLenum _type, GLuint _id, GLenum _severity,
+							 GLsizei _length, const char* _message,
+							 void* _userParam);
 
-	GLFWwindow *m_ActiveWindow;*/
+	
 
 	OpenGLWindow::OpenGLWindow(int newWidth, float newHeight, const std::string& name) :
 		m_ViewportWidth(newWidth),
@@ -31,6 +32,7 @@ namespace emannlib
 			glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
 			glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 			glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+			glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, true);
 
 			glfwSwapInterval(1);
 			m_ActiveWindow = glfwCreateWindow(newWidth, newHeight, name.c_str(), NULL, NULL);
@@ -68,6 +70,9 @@ namespace emannlib
 			glfwSetFramebufferSizeCallback(m_ActiveWindow, FrameBufferSizeCallback);
 
 		}
+		//need to check if hardware supports this
+		glDebugMessageCallbackARB(OpenGLErrorCallback, NULL);
+		glEnable(GL_DEBUG_OUTPUT);
 
 
 		glEnable(GL_TEXTURE_2D);
@@ -403,5 +408,13 @@ namespace emannlib
 	void OpenGLWindow::WindowSizeCallback(GLFWwindow *activeWindow, int newWidth, int newHeight)
 	{
 		OpenGLWindow::GetSingleton().SetViewportSize(newWidth, newHeight);
+	}
+
+	void APIENTRY OpenGLErrorCallback(GLenum _source,
+							 GLenum _type, GLuint _id, GLenum _severity,
+							 GLsizei _length, const char* _message,
+							 void* _userParam)
+	{
+		std::cout << "OGL ERROR: " << _message << std::endl;
 	}
 }

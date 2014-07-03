@@ -130,6 +130,9 @@ namespace emannlib
 	public:
 		static void FrameBufferSizeCallback(GLFWwindow *activeWindow, int newWidth, int newHeight);
 		static void WindowSizeCallback(GLFWwindow *activeWindow, int newWidth, int newHeight);
+
+		
+
 	};
 }
 
