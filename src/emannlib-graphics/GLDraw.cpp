@@ -16,6 +16,9 @@
 #include "Texture.hpp"
 
 #include "../emannlib-math/Math.hpp"
+#include "../emannlib-common/AutoProfile.hpp"
+
+#include "OpenGLStateMachine.hpp"
 
 namespace emannlib
 {
@@ -28,6 +31,7 @@ namespace emannlib
 
 		void DrawLine(const glm::vec2& start, const glm::vec2& stop)
 		{
+			AUTO_PROFILE("gl::DrawLine");
 			float lineVerts[2 * 2];
 			glEnableClientState(GL_VERTEX_ARRAY);
 			glVertexPointer(2, GL_FLOAT, 0, lineVerts);
@@ -39,6 +43,7 @@ namespace emannlib
 
 		void DrawRect(const Area& sq)
 		{
+			AUTO_PROFILE("gl::DrawRect");
 			GLfloat verts[8];
 			verts[0] = sq.m_LowerRight.x;	verts[1] = sq.m_UpperLeft.y;
 			verts[2] = sq.m_UpperLeft.x;	verts[3] = sq.m_UpperLeft.y;
@@ -51,6 +56,7 @@ namespace emannlib
 		}
 		void DrawRectStroke(const Area& sq)	
 		{
+			AUTO_PROFILE("gl::DrawRectStroke");
 			GLfloat verts[8];
 			verts[0] = sq.m_UpperLeft.x;	verts[1] = sq.m_UpperLeft.y;
 			verts[2] = sq.m_LowerRight.x;	verts[3] = sq.m_UpperLeft.y;
@@ -62,8 +68,9 @@ namespace emannlib
 			glDisableClientState(GL_VERTEX_ARRAY);
 		}
 
-		void DrawCirle(const glm::vec2& center, float radius, int numSides)
+		void DrawCirle(const Vec2f& center, float radius, int numSides )
 		{
+			AUTO_PROFILE("gl::DrawCirle");
 			// automatically determine the number of segments from the circumference
 			if (numSides <= 0) {
 				numSides = (int) Math<double>::Floor(radius * Math<double>::PI * 2);
@@ -82,6 +89,7 @@ namespace emannlib
 			glVertexPointer(2, GL_FLOAT, 0, verts);
 			glDrawArrays(GL_TRIANGLE_FAN, 0, numSides + 2);
 			glDisableClientState(GL_VERTEX_ARRAY);
+			OpenGLStateMachine::GetSingleton().AddTrianglesToFrameCount(numSides);
 			delete [] verts;
 		
 		}
@@ -89,6 +97,7 @@ namespace emannlib
 
 		void DrawCirleStroke(const glm::vec2& center, float radius, int numSides)
 		{
+			AUTO_PROFILE("gl::DrawCirleStroke");
 			// automatically determine the number of segments from the circumference
 			if (numSides <= 0) {
 				numSides = (int) Math<double>::Floor(radius * Math<double>::PI * 2);
@@ -111,34 +120,40 @@ namespace emannlib
 
 		void DrawCoordinateFrame(const glm::vec2& center, float axisLength, float headLength, float headWidth){}
 
-		void DrawVector(const glm::vec2& start, const glm::vec2& end, float headLength, float headWidth)
+		void DrawVector(const Vec2f& start, const Vec2f& target, float vectorLength, float vectorWidth, float headLength, float headWidth)
 		{
-			float VectorWidth = 1.0;
-			float VectorLength = 50.0;// (start - end).length();
+			AUTO_PROFILE("gl::DrawVector");
+			float bodyLength = (vectorLength > headLength)?(vectorLength - headLength):(0.0f);
+			
+			Vec2f spanVector = target - start;
 
-
+			float radians = (spanVector.x > 0.0f) ? Math<float>::ATan(spanVector.y / spanVector.x) : (Math<float>::ATan(spanVector.y / spanVector.x) + Math<float>::PI);
+			
 			float verts[18];
 	
 			int i = 0;
-			verts[i * 2] = 0.0;				verts[i * 2 + 1] = VectorWidth / 2.0; i++;
-			verts[i * 2] = 0.0;				verts[i * 2 + 1] = -VectorWidth / 2.0; i++;
-			verts[i * 2] = VectorLength;	verts[i * 2 + 1] = VectorWidth / 2.0; i++;
+			verts[i * 2] = 0.0f;				verts[i * 2 + 1] = vectorWidth / 2.0f; i++;
+			verts[i * 2] = 0.0f;				verts[i * 2 + 1] = -vectorWidth / 2.0f; i++;
+			verts[i * 2] = bodyLength;	verts[i * 2 + 1] = vectorWidth / 2.0f; i++;
 
-			verts[i * 2] = VectorLength;	verts[i * 2 + 1] = VectorWidth / 2.0; i++;
-			verts[i * 2] = 0.0;				verts[i * 2 + 1] = -VectorWidth / 2.0; i++;
-			verts[i * 2] = VectorLength;	verts[i * 2 + 1] = -VectorWidth / 2.0; i++;
+			verts[i * 2] = bodyLength;	verts[i * 2 + 1] = vectorWidth / 2.0f; i++;
+			verts[i * 2] = 0.0f;				verts[i * 2 + 1] = -vectorWidth / 2.0f; i++;
+			verts[i * 2] = bodyLength;	verts[i * 2 + 1] = -vectorWidth / 2.0f; i++;
 
-			verts[i * 2] = VectorLength; verts[i * 2 + 1] = headWidth / 2.0; i++;
-			verts[i * 2] = VectorLength; verts[i * 2 + 1] = -headWidth / 2.0; i++;
-			verts[i * 2] = VectorLength+headLength; verts[i * 2 + 1] = 0; i++;
+			verts[i * 2] = bodyLength; verts[i * 2 + 1] = headWidth / 2.0f; i++;
+			verts[i * 2] = bodyLength; verts[i * 2 + 1] = -headWidth / 2.0f; i++;
+			verts[i * 2] = bodyLength + headLength; verts[i * 2 + 1] = 0.0f; i++;
 
-	
-			
+			OpenGLStateMachine::GetSingleton().PushModelView();
+			OpenGLStateMachine::GetSingleton().Rotate(radians);
+			OpenGLStateMachine::GetSingleton().Translate(glm::vec2(start.x, start.y));
 
 			glEnableClientState(GL_VERTEX_ARRAY);
 			glVertexPointer(2, GL_FLOAT, 0, verts);
 			glDrawArrays(GL_TRIANGLES, 0, 9);
 			glDisableClientState(GL_VERTEX_ARRAY);
+			OpenGLStateMachine::GetSingleton().AddTrianglesToFrameCount(3);
+			OpenGLStateMachine::GetSingleton().PopModelView();
 		}
 
 		void DrawPolyLine(const std::vector<glm::vec2>& line){}
@@ -146,6 +161,7 @@ namespace emannlib
 
 		void Color(float r, float g, float b, float a)
 		{
+			AUTO_PROFILE("gl::Color");
 			glColor4f(r, g, b, a);
 		}
 

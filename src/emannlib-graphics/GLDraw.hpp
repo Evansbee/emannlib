@@ -7,6 +7,7 @@
 #include "Texture.hpp"
 #include "Area.hpp"
 
+#include "../emannlib-common/Vector.hpp"
 
 namespace emannlib
 {
@@ -14,20 +15,20 @@ namespace emannlib
 	{
 		void Draw(std::shared_ptr<Texture> texture, Area area);
 		
-		void DrawLine(const glm::vec2& start, const glm::vec2& stop);
+		void DrawLine(const Vec2f& start, const Vec2f& stop);
 		
 		void DrawRect(const Area& sq);
 		void DrawRectStroke(const Area& sq);
 
-		void DrawCirle(const glm::vec2& center, float radius, int numSides = 360);
-		void DrawCirleStroke(const glm::vec2& center, float radius, int numSides = 360);
+		void DrawCirle(const Vec2f& center, float radius, int numSides = 360);
+		void DrawCirleStroke(const Vec2f& center, float radius, int numSides = 360);
 
-		void DrawCoordinateFrame(const glm::vec2& center, float axisLength, float headLength, float headWidth);
+		void DrawCoordinateFrame(const Vec2f& center, float axisLength, float headLength, float headWidth);
 
-		void DrawVector(const glm::vec2& start, const glm::vec2& end, float headLength, float headWidth);
+		void DrawVector(const Vec2f& start, const Vec2f& target, float vectorLength, float vectorWidth, float headLength, float headWidth);
 
-		void DrawPolyLine(const std::vector<glm::vec2>& line);
-		void DrawClosedPolyLine(const std::vector<glm::vec2>& line);
+		void DrawPolyLine(const std::vector<Vec2f>& line);
+		void DrawClosedPolyLine(const std::vector<Vec2f>& line);
 
 		void Color(float r, float g, float b, float a = 1.0);
 

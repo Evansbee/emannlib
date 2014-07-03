@@ -39,7 +39,7 @@ namespace emannlib
 		Vec2() : x((T) 0), y(T(0)){}
 		Vec2(T nx, T ny) : x(nx), y(ny){}
 		Vec2(const Vec2<T>& src) :x(src.x), y(src.y){}
-		explicit Vec2(const T* d) : x(d[0]), y(d[1]);
+		explicit Vec2(const T* d) : x(d[0]), y(d[1]){}
 
 		template <typename FromT>
 		Vec2(const Vec2<FromT>& src) : x(static_cast<T>(src.x)), y(static_cast<T>(src.y)) {}

@@ -5,6 +5,7 @@
 
 #include <stack>
 #include <memory>
+#include <inttypes.h>
 
 #define GLFW_INCLUDE_GLU
 #define GLEW_STATIC
@@ -46,6 +47,8 @@ namespace emannlib
 		void SetActiveWindow(GLFWwindow *activeWindow);
 
 		void BeginDraw() const;
+		void BeginDraw(float r, float g, float b) const;
+
 		void EndDraw() const;
 		//transforms:
 	public:
@@ -75,12 +78,19 @@ namespace emannlib
 
 		void MessagePump() const;
 
+		uint32_t GetFrameTriangleCount() const;
+		void AddTrianglesToFrameCount(uint32_t tris);
+		void ClearFrameTriangleCount();
+
 	private:
 		void updateMatrixState();
 	private:
 		emannlib::Transform m_CurrentTransform;
 		float m_ViewportWidth;
 		float m_ViewportHeight;
+
+		uint32_t m_FrameTriangleCount;
+
 		GLFWwindow *m_ActiveWindow;
 	};
 }
