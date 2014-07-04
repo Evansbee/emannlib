@@ -408,6 +408,7 @@ namespace emannlib
 	void OpenGLWindow::WindowSizeCallback(GLFWwindow *activeWindow, int newWidth, int newHeight)
 	{
 		OpenGLWindow::GetSingleton().SetViewportSize(newWidth, newHeight);
+		OpenGLWindow::GetSingleton().Ortho2DFromCenterAndExtents(OpenGLWindow::GetSingleton().m_CenterPoint, newWidth, newHeight);
 	}
 
 	void APIENTRY OpenGLErrorCallback(GLenum _source,

@@ -5,9 +5,6 @@
 #include "Event.hpp"
 #include "../emannlib-common/RunTime.hpp"
 #include "../emannlib-common/Task.hpp"
-#include "../emannlib-graphics/OpenGLStateMachine.hpp"
-
-
 
 
 #define GLEW_STATIC
