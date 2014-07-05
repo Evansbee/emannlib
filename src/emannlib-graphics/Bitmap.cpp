@@ -99,7 +99,7 @@ namespace emannlib
 	}
 
 
-	bool Bitmap::operator ==(Bitmap other) const
+	bool Bitmap::operator ==(const Bitmap& other) const
 	{
 		if (m_ImageHeight == other.m_ImageHeight &&
 			m_ImageWidth == other.m_ImageWidth)
@@ -158,7 +158,7 @@ namespace emannlib
 	}
 
 
-	bool Bitmap::operator !=(Bitmap other) const
+	bool Bitmap::operator !=(const Bitmap& other) const
 	{
 		return !(*this == other);
 	}

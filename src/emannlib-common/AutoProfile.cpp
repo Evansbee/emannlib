@@ -62,7 +62,8 @@ namespace emannlib
 
 	void ProfileNode::SortChildren()
 	{
-		std::sort(
+
+        std::sort(
                   m_ChildNodes.begin(),
                   m_ChildNodes.end(),
                   [ ](ProfileNode *a, ProfileNode *b)
@@ -70,6 +71,7 @@ namespace emannlib
                         return a->GetAverageRunTime() > b->GetAverageRunTime();
                     }
                 );
+
 	}
 
 	uint32_t ProfileNode::GetNodeDepth() const

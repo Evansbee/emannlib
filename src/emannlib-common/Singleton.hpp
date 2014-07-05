@@ -17,7 +17,7 @@ namespace emannlib
 		Singleton()
 		{
 			GD_ASSERT(ms_Singleton == NULL);
-			int offset = (long int) (T*) 1 - (long int) (Singleton <T>*)(T*) 1;
+			long int offset = (long int) (T*) 1 - (long int) (Singleton <T>*)(T*) 1;
 			ms_Singleton = (T*) ((long int)this + offset);
 		}
 		~Singleton()

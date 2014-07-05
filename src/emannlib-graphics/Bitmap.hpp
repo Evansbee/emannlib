@@ -69,8 +69,8 @@ namespace emannlib
 		Bitmap(uint32_t width, uint32_t height, uint32_t bpp, unsigned char *data);
 		Bitmap(uint32_t width, uint32_t height);
 
-		bool operator ==(Bitmap other) const;
-		bool operator !=(Bitmap other) const;
+		bool operator ==(const Bitmap& other) const;
+		bool operator !=(const Bitmap& other) const;
 
 		uint32_t GetWidth() const { return m_ImageWidth; }
 		uint32_t GetHeight() const { return m_ImageHeight; }

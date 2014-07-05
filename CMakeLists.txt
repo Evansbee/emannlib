@@ -66,17 +66,22 @@ set(FREETYPE_LIBRARY ${PROJECT_SOURCE_DIR}/3rdparty/lib/libfreetyped.a)
 endif (APPLE)
 
 IF(APPLE)
+
+	add_definitions(-std=c++11 -stdlib=libc++)
+
    INCLUDE_DIRECTORIES ( /System/Library/Frameworks )
+   	  FIND_PATH(COREVIDEO_INCLUDE_DIR CoreVideo/CoreVideo.h)
+  FIND_LIBRARY(COREVIDEO_LIBRARY CoreVideo)
    FIND_LIBRARY(COCOA_LIBRARY Cocoa)
    FIND_LIBRARY(OpenGL_LIBRARY OpenGL )
    FIND_LIBRARY(IOKit_LIBRARY IOKit )
-   FIND_LIBRARY(CoreVideo_LIBRARY CoreVideo )  
+
 
    MARK_AS_ADVANCED (COCOA_LIBRARY
                      GLUT_LIBRARY
                      IOKit_LIBRARY
-					 CoreVideo_LIBRARY)
-   SET(EXTRA_LIBS ${COCOA_LIBRARY} ${OpenGL_LIBRARY} ${IOKit_LIBRARY} ${CoreVideo_LIBRARY})
+					 COREVIDEO_LIBRARY)
+   SET(EXTRA_LIBS ${COCOA_LIBRARY} ${OpenGL_LIBRARY} ${IOKit_LIBRARY} ${COREVIDEO_LIBRARY})
 ENDIF (APPLE)
 
 

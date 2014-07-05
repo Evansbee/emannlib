@@ -66,7 +66,6 @@ int main(int argc, char ** argv)
 	pList.reserve(1000);
 	new emannlib::OpenGLWindow(1000,600,argv[0]);
 
-	auto start = emannlib::Time().GetCurrentTime();
 	auto current = emannlib::Time().GetCurrentTime();
 	auto last = current;
 
