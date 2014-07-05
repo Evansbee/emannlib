@@ -137,7 +137,7 @@ namespace emannlib
 
 		Vec2<T> GetNormalized() const
 		{
-			Vec2<t> result = *this;
+			Vec2<T> result = *this;
 			result.Normalize();
 			return result;
 		}

@@ -113,7 +113,7 @@ namespace emannlib
 			AllocateSpaceForComponent(C::GetTypeID());
 			m_EntityComponents[C::GetTypeID()][id.GetIndex()] = base;
 			m_EntityComponentMask[id.GetIndex()] |= (uint64_t) (1) << C::GetTypeID();
-			m_EventManager->Emit<ComponentAddedEvent<C>>(newEntity, component);
+			m_EventManager->Emit<ComponentAddedEvent<C > >(newEntity, component);
 			return component;
 		}
 		return nullptr;
@@ -154,7 +154,7 @@ namespace emannlib
 			m_EntityComponentMask[id.GetIndex()].reset(C::GetTypeID());
 
 			Entity newEntity(shared_from_this(), id);
-			m_EventManager->Emit<ComponentRemovedEvent<C>>(newEntity, ret);
+			m_EventManager->Emit<ComponentRemovedEvent<C > >(newEntity, ret);
 
 			return ret;
 		}

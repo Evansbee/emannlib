@@ -9,8 +9,8 @@
 
 #define GLEW_STATIC
 #define GLFW_INCLUDE_GLU
-#include "GL\glew.h"
-#include "GLFW\glfw3.h"
+#include "GL/glew.h"
+#include "GLFW/glfw3.h"
 
 namespace emannlib
 {

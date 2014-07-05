@@ -1,12 +1,12 @@
 #include <iostream>
 
-#include "emannlib-graphics\OpenGLWindow.hpp"
+#include "emannlib-graphics/OpenGLWindow.hpp"
 //#include "emannlib-graphics\GLDraw.hpp"
 
 #include "emannlib-common/Singleton.hpp"
-#include "emannlib-common\Time.hpp"
-#include "emannlib-math\Math.hpp"
-#include "emannlib-common\Vector.hpp"
+#include "emannlib-common/Time.hpp"
+#include "emannlib-math/Math.hpp"
+#include "emannlib-common/Vector.hpp"
 
 class Particle
 {
@@ -114,7 +114,7 @@ int main(int argc, char ** argv)
 
 		float width = (float) emannlib::OpenGLWindow::GetSingleton().GetViewportWidth() / 1.75;
 		float height = (float) emannlib::OpenGLWindow::GetSingleton().GetViewportHeight() / 1.75;
-		for (auto &p = pList.begin(); p != pList.end();)
+		for (auto p = pList.begin(); p != pList.end();)
 		{
 			(*p)->Update(dt);
 

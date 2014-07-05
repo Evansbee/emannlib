@@ -187,7 +187,7 @@ namespace emannlib
 
 
 	template <class C>
-	class ComponentAddedEvent : public Event<ComponentAddedEvent<C>>
+	class ComponentAddedEvent : public Event<ComponentAddedEvent<C > >
 	{
 		
 	public:
@@ -202,7 +202,7 @@ namespace emannlib
 
 
 	template <class C>
-	class ComponentRemovedEvent : public Event<ComponentRemovedEvent<C>>
+	class ComponentRemovedEvent : public Event<ComponentRemovedEvent<C > >
 	{
 	public:
 		ComponentRemovedEvent() {}
@@ -256,9 +256,9 @@ namespace emannlib
 		uint32_t m_TopIndex = 0;
 		std::list<uint32_t> m_FreeSlots;
 		std::vector<uint32_t> m_EntityVersionNumbers;
-		std::vector<std::bitset<emannlib_MAX_COMPONENTS>> m_EntityComponentMask;
-		std::vector<std::vector<std::shared_ptr<BaseComponent>>> m_EntityComponents;
-		std::vector<std::unordered_set<std::string>> m_EntityTags;
+		std::vector<std::bitset<emannlib_MAX_COMPONENTS > > m_EntityComponentMask;
+		std::vector<std::vector<std::shared_ptr<BaseComponent > > > m_EntityComponents;
+		std::vector<std::unordered_set<std::string > > m_EntityTags;
 
 	private:
 
