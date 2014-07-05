@@ -27,8 +27,14 @@ namespace emannlib
 	class Vec2
 	{
 	public:
-		T x;
-		T y;
+        union
+        {
+            struct
+            {
+                T x;
+                T y;
+            };
+        };
 
 		//For Return Type Junk
 	public:

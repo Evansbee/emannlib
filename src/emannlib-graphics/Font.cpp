@@ -25,7 +25,6 @@ namespace emannlib
 	{
 		AUTO_PROFILE("Font::RenderString");
 		int x = 0;
-		int y = 28;
 
 		int max_ymax=0;
 		int min_ymin=0;

@@ -15,7 +15,7 @@ namespace emannlib
 	public:
 		Font(const std::string& fontname);
 		Bitmap RenderString(const std::string& text);
-		Bitmap Font::RenderGlyph(char x);
+		Bitmap RenderGlyph(char x);
 	public:
 		FT_Library m_Library;
 		FT_Face m_Face;

@@ -67,11 +67,11 @@ namespace emannlib
 		//construction
 	public:
 		Program();
-		Program(const std::vector<std::shared_ptr<Shader>>& shaderList);
+		Program(const std::vector<std::shared_ptr<Shader> >& shaderList);
 		~Program();
 
 		//Helper
-		void CreateProgram(const std::vector<std::shared_ptr<Shader>>& shaderList);
+		void CreateProgram(const std::vector<std::shared_ptr<Shader> >& shaderList);
 
 		void Use() const;
 		void StopUsing() const;

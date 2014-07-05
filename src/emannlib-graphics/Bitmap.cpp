@@ -16,17 +16,18 @@ namespace emannlib
 		return *this;
 	}
 	Bitmap::Bitmap(Bitmap&& other) :
-		m_PixelData(std::move(other.m_PixelData)),
-		m_ImageHeight(std::move(other.m_ImageHeight)),
-		m_ImageWidth(std::move(other.m_ImageWidth))
+    m_ImageWidth(std::move(other.m_ImageWidth)),
+    m_ImageHeight(std::move(other.m_ImageHeight)),
+    m_PixelData(std::move(other.m_PixelData))
 
 	{
 
 	}
 
 	Bitmap::Bitmap(uint32_t width, uint32_t height) :
-		m_ImageHeight(height),
 		m_ImageWidth(width),
+    m_ImageHeight(height),
+		
 		m_ImageComposition(4)
 	{
 		AUTO_PROFILE("Bitmap::Bitmap(From width and height)");
@@ -43,8 +44,8 @@ namespace emannlib
 	}
 
 	Bitmap::Bitmap(uint32_t width, uint32_t height, uint32_t bpp, unsigned char *data) :
-		m_ImageHeight(height),
 		m_ImageWidth(width),
+    m_ImageHeight(height),
 		m_ImageComposition(bpp)
 	{
 		AUTO_PROFILE("Bitmap::Bitmap(From Buffer)");

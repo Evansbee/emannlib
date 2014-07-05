@@ -19,7 +19,7 @@ namespace emannlib {
 
 	class ProfileNode
 	{
-#ifdef _DEBUG
+
 	public:
 
 		ProfileNode();
@@ -71,7 +71,7 @@ namespace emannlib {
 
 		double m_CurrentStartTime;
 		bool m_CurrentlyActive;
-#endif
+
 	};
 
 
@@ -86,12 +86,12 @@ namespace emannlib {
 		
 
 	private:
-#ifdef _DEBUG
+
 		double m_StartTime;
 
 		static ProfileNode * ms_RootProfileNode;
 		static ProfileNode * ms_CurrentProfileNode;
-#endif
+
 	};
 }
 

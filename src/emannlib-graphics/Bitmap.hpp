@@ -49,7 +49,10 @@ namespace emannlib
 	class Bitmap
 	{
 	private:
-		Bitmap() : m_ImageHeight(0), m_ImageWidth(0){};
+		Bitmap() :
+            m_ImageWidth(0),
+            m_ImageHeight(0)
+            {};
 		void _swap(Bitmap &other)
 		{
 			std::swap(this->m_ImageHeight, m_ImageHeight);

@@ -23,7 +23,6 @@
 
 namespace emannlib
 {
-#ifdef _DEBUG
 	ProfileNode * AutoProfile::ms_RootProfileNode = new ProfileNode("Application", true);
 	ProfileNode * AutoProfile::ms_CurrentProfileNode = ms_RootProfileNode;
 
@@ -32,9 +31,10 @@ namespace emannlib
 	ProfileNode::ProfileNode(){}
 
 	ProfileNode::ProfileNode(const std::string& name, bool forceStart) :
-		m_Name(name),
 		m_ChildNodes(),
-		m_ParentNode(NULL),
+    m_ParentNode(NULL),
+    m_Name(name),
+		
 		m_TotalNodeTime(0),
 		m_MaxNodeTime(0),
 		m_NumberOfSamples(0),
@@ -49,9 +49,9 @@ namespace emannlib
 
 
 	ProfileNode::ProfileNode(const std::string& name, ProfileNode * parent) :
-		m_Name(name),
 		m_ChildNodes(),
-		m_ParentNode(parent),
+    m_ParentNode(parent),
+    m_Name(name),
 		m_TotalNodeTime(0),
 		m_MaxNodeTime(0),
 		m_NumberOfSamples(0),
@@ -62,7 +62,14 @@ namespace emannlib
 
 	void ProfileNode::SortChildren()
 	{
-		std::sort(m_ChildNodes.begin(), m_ChildNodes.end(), [](ProfileNode *a, ProfileNode *b){return a->GetAverageRunTime() > b->GetAverageRunTime(); });
+		std::sort(
+                  m_ChildNodes.begin(),
+                  m_ChildNodes.end(),
+                  [ ](ProfileNode *a, ProfileNode *b)
+                    {
+                        return a->GetAverageRunTime() > b->GetAverageRunTime();
+                    }
+                );
 	}
 
 	uint32_t ProfileNode::GetNodeDepth() const
@@ -177,10 +184,10 @@ namespace emannlib
 	void ProfileNode::SetCurrentlyActive() { m_CurrentlyActive = true; }
 	void ProfileNode::ClearCurrentlyActive() { m_CurrentlyActive = false; }
 
-#endif
+
 	AutoProfile::AutoProfile(const std::string& name)
 	{
-#ifdef _DEBUG
+
 		ProfileNode *currentNode = ms_CurrentProfileNode;
 		if ((currentNode = ms_CurrentProfileNode->GetChildByName(name)) == NULL)
 		{
@@ -195,21 +202,21 @@ namespace emannlib
 
 		ms_CurrentProfileNode->SetCurrentStartTime(m_StartTime);
 		ms_CurrentProfileNode->SetCurrentlyActive();
-#endif
+
 	}
 
 	AutoProfile::~AutoProfile()
 	{
-#ifdef _DEBUG
+
 		ms_CurrentProfileNode->AddTime(Time::GetCurrentTime() - m_StartTime);
 		ms_CurrentProfileNode->ClearCurrentlyActive();
 		ms_CurrentProfileNode = ms_CurrentProfileNode->GetParent();
-#endif
+
 	}
 
 	std::string AutoProfile::Report(uint32_t maxNameSectionWidth)
 	{
-#ifdef _DEBUG
+
 		std::stringstream responseString;
 
 		const int indentAmount = 3;
@@ -329,7 +336,7 @@ namespace emannlib
 		} while (parseStack.size() > 0);
 
 		return responseString.str();
-#endif
+
 	}
 
 }

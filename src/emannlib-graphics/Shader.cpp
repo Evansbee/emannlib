@@ -125,14 +125,14 @@ namespace emannlib
 	{}
 
 
-	Program::Program(const std::vector<std::shared_ptr<Shader>>& shaderList) :
+	Program::Program(const std::vector<std::shared_ptr<Shader> >& shaderList) :
 		m_ProgramID(0)
 	{
 		CreateProgram(shaderList);
 	}
 
 
-	void Program::CreateProgram(const std::vector<std::shared_ptr<Shader>>& shaderList)
+	void Program::CreateProgram(const std::vector<std::shared_ptr<Shader> >& shaderList)
 	{
 		AUTO_PROFILE("Program::CreateProgram");
 		if (glIsProgram(m_ProgramID))

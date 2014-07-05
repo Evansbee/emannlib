@@ -259,6 +259,10 @@ namespace emannlib
 				case EASING_BOUNCE_IN: return BounceEaseInFunction(percentage);
 				case EASING_BOUNCE_OUT: return BounceEaseOutFunction(percentage);
 				case EASING_BOUNCE_INOUT:return BounceEaseInOutFunction(percentage);
+                    
+                case EASING_END:
+                default:
+                    LinearEasingFunction(percentage);
 			}
 			return LinearEasingFunction(percentage);
 		}
