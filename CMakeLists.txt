@@ -66,12 +66,19 @@ set(FREETYPE_LIBRARY ${PROJECT_SOURCE_DIR}/3rdparty/lib/libfreetyped.a)
 endif (APPLE)
 
 IF(APPLE)
-   #SET(GUI_TYPE MACOSX_BUNDLE)
-   INCLUDE_DIRECTORIES ( /Developer/Headers/FlatCarbon )
+   INCLUDE_DIRECTORIES ( /System/Library/Frameworks )
    FIND_LIBRARY(COCOA_LIBRARY Cocoa)
-   MARK_AS_ADVANCED (COCOA_LIBRARY)
-   SET(EXTRA_LIBS ${COCOA_LIBRARY} )
+   FIND_LIBRARY(OpenGL_LIBRARY OpenGL )
+   FIND_LIBRARY(IOKit_LIBRARY IOKit )
+   FIND_LIBRARY(CoreVideo_LIBRARY IOKit )  
+
+   MARK_AS_ADVANCED (COCOA_LIBRARY
+                     GLUT_LIBRARY
+                     IOKit_LIBRARY
+					 CoreVideo_LIBRARY)
+   SET(EXTRA_LIBS ${COCOA_LIBRARY} ${OpenGL_LIBRARY} ${IOKit_LIBRARY} ${CoreVideo_LIBRARY})
 ENDIF (APPLE)
+
 
 
 #find_library(GLFW NAMES "glfw3.lib" glfw3.a glfw3.so glfw3 PATHS ${PROJECT_BINARY_DIR}/3rdparty/lib NO_DEFAULT_PATH)

@@ -13,5 +13,5 @@ target_link_libraries(BasicDrawingTests PUBLIC ${FREETYPE_LIBRARY} ${GLEW_LIBRAR
 endif (MSVC)
 
 if(APPLE)
-target_link_libraries(BasicDrawingTests PUBLIC ${FREETYPE_LIBRARY} ${GLEW_LIBRARY} ${GLFW_LIBRARY} emannlib-graphics.a emannlib-math.a emannlib-common.a ${OPENGL_LIBRARIES})
+target_link_libraries(BasicDrawingTests PUBLIC ${FREETYPE_LIBRARY} ${GLEW_LIBRARY} ${GLFW_LIBRARY} emannlib-graphics.a emannlib-math.a emannlib-common.a ${EXTRA_LIBS})
 endif (APPLE)
