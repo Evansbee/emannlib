@@ -1,4 +1,6 @@
 /build/*
+/VS12/*
+/XCode/*
 /bin/
 /lib/
 .DS_Store
