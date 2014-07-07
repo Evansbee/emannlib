@@ -32,11 +32,14 @@ namespace emannlib
 			//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
 			//glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 			//glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-			//glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, true);
+			
+			glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+			glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+			glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
             glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
             glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-            glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-            glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+            
+			
 			//glfwSwapInterval(1);
 			m_ActiveWindow = glfwCreateWindow(newWidth, newHeight, name.c_str(), NULL, NULL);
 
@@ -74,9 +77,12 @@ namespace emannlib
 
 		}
 		//need to check if hardware supports this
-		//glDebugMessageCallbackARB(OpenGLErrorCallback, NULL);
-		//glEnable(GL_DEBUG_OUTPUT);
-
+		
+		if (GLEW_ARB_debug_output)
+		{
+			glDebugMessageCallbackARB(OpenGLErrorCallback, NULL);
+			glEnable(GL_DEBUG_OUTPUT);
+		}
 
 		glEnable(GL_TEXTURE_2D);
 		glEnable(GL_BLEND);
