@@ -137,23 +137,7 @@ int main(int argc, char ** argv)
 		}
 
 		last = current;
-        GLenum err;
-        
-        static char* errorMsg[] = {
-            "GL_INVALID_ENUM",
-            "GL_INVALID_VALUE",
-            "GL_INVALID_OPERATION",
-            "GL_INVALID_FRAMEBUFFER_OPERATION",
-            "GL_OUT_OF_MEMORY",
-            "GL_STACK_UNDERFLOW",
-            "GL_STACK_OVERFLOW"
-            
-        };
-        while ((err = glGetError()) != GL_NO_ERROR) {
-            auto idx = err - GL_INVALID_ENUM;
-            std::cerr << "OpenGL error: " << errorMsg[idx] << std::endl;
-        }
-			
+
 		emannlib::OpenGLWindow::GetSingleton().EndDraw();
 	
 	}
