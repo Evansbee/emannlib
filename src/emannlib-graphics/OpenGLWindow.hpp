@@ -109,12 +109,10 @@ namespace emannlib
 		Vec2f m_CenterPoint;
 		bool m_FullScreen;
 
-		GLFWwindow *m_ActiveWindow;
+		bool m_DebugCallbackActive;
+		
 
-        float m_CurrentColorR;
-        float m_CurrentColorG;
-        float m_CurrentColorB;
-        float m_CurrentColorA;
+		GLFWwindow *m_ActiveWindow;
 
 		//drawing
 	public:

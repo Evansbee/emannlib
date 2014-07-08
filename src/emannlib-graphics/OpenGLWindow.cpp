@@ -21,18 +21,15 @@ namespace emannlib
 		m_WindowWidth(newWidth),
 		m_ViewableHeight((float) newHeight),
 		m_ViewableWidth((float) newWidth),
-		m_CenterPoint(Vec2f(0.0f, 0.0f))
+		m_CenterPoint(Vec2f(0.0f, 0.0f)),
+		m_DebugCallbackActive(false)
 	{
 		m_CurrentTransform.m_ModelViewMatrix.push(glm::mat4());
 		m_CurrentTransform.m_ProjectionMatrix.push(glm::mat4());
 
 		if (glfwInit() == GL_TRUE)
 		{
-
-			//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
-			//glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-			//glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-			
+		
 			glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 			glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 			glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
@@ -82,6 +79,7 @@ namespace emannlib
 		{
 			glDebugMessageCallbackARB(OpenGLErrorCallback, NULL);
 			glEnable(GL_DEBUG_OUTPUT);
+			m_DebugCallbackActive = true;
 		}
 
 		glEnable(GL_TEXTURE_2D);
@@ -157,8 +155,29 @@ namespace emannlib
 	}
 	void OpenGLWindow::EndDraw()
 	{
+		if (!m_DebugCallbackActive)
+		{
+			GLenum err;
+
+			static char* errorMsg [] = {
+				"GL_INVALID_ENUM",
+				"GL_INVALID_VALUE",
+				"GL_INVALID_OPERATION",
+				"GL_INVALID_FRAMEBUFFER_OPERATION",
+				"GL_OUT_OF_MEMORY",
+				"GL_STACK_UNDERFLOW",
+				"GL_STACK_OVERFLOW"
+
+			};
+			while ((err = glGetError()) != GL_NO_ERROR) {
+				auto idx = err - GL_INVALID_ENUM;
+				std::cerr << "OpenGL error: " << errorMsg[idx] << std::endl;
+			}
+
+		}
 		glfwSwapBuffers(m_ActiveWindow);
 		glfwPollEvents();
+		
 	}
 
 	//OGL Control
@@ -449,6 +468,38 @@ namespace emannlib
 							 GLsizei _length, const char* _message,
 							 void* _userParam)
 	{
-		std::cout << "OGL ERROR: " << _message << std::endl;
+
+		const char* OGL_Severities [] = {
+			"HIGH",
+			"MEDIUM",
+			"LOW"
+		};
+
+		_severity -= GL_DEBUG_SEVERITY_HIGH;
+
+		const char* OGL_Sources [] = {
+			"API",
+			"WINDOW_SYSTEM",
+			"SHADER_COMPILER",
+			"THIRD_PARTY",
+			"APPLICATION",
+			"OTHER" };
+
+		_source -= GL_DEBUG_SOURCE_API;
+
+
+		const char* OGL_Types [] = {
+			"ERROR",
+			"DEPRECATED_BEHAVIOR",
+			"UNDEFINED_BEHAVIOR",
+			"PORTABILITY",
+			"PERFORMANCE",
+			"OTHER"
+		};
+
+		_type -= GL_DEBUG_TYPE_ERROR;
+
+		std::cerr << "OpenGL Error: " << OGL_Types[_type] << " from "<<OGL_Sources[_source]<<std::endl;
+		std::cerr << _message << std::endl;
 	}
 }
