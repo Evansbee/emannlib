@@ -4,7 +4,7 @@ uniform bool HasTextures;
 uniform bool HasColors;
 uniform bool HasNormals;
 
-uniform smapler2D TextureID;
+uniform sampler2D TextureID;
 
 in vec4 FragmentColor;
 in vec2 FragmentTextureCoordinates;
@@ -15,7 +15,7 @@ void main()
 {
 	if(HasTextures)
 	{
-		ScreenColor = texture(Texture, FragmentTextureCoordinates);
+		ScreenColor = texture(TextureID,FragmentTextureCoordinates);
 	}
 	else if(HasColors)
 	{
@@ -25,4 +25,5 @@ void main()
 	{
 		ScreenColor = vec4(1.0,1.0,1.0,1.0);
 	}
+	ScreenColor = vec4(1.0,1.0,1.0,1.0);
 }

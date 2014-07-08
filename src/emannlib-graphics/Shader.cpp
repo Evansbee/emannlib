@@ -27,6 +27,8 @@ Purpose       :
 #include <fstream>
 #include <sstream>
 
+#include <iostream>
+
 namespace emannlib
 {
 
@@ -62,7 +64,7 @@ namespace emannlib
 		f.open(fileName, std::ios::in);
 		if (!f.is_open())
 		{
-			//LOG_ERROR("Could note open shaderfile: ", fileName.c_str());
+			std::cerr<<"Could note open shaderfile: " <<  fileName.c_str() << std::endl;
 		}
 
 		std::stringstream readbuffer;
@@ -100,7 +102,7 @@ namespace emannlib
 
 			char *infoLog = new char[len + 1];
 			glGetShaderInfoLog(m_ShaderID, len, NULL, infoLog);
-
+			std::cerr << infoLog << std::endl;
 			//LOG_ERROR("Failed to compile shader: %s", infoLog);
 		}
 	}
@@ -166,6 +168,7 @@ namespace emannlib
 			char *infoLog = new char[len + 1];
 			glGetProgramInfoLog(m_ProgramID, len, NULL, infoLog);
 
+			std::cerr << infoLog << std::endl;
 			//LOG_ERROR("Failed to link program: %s", infoLog);
 		}
 	}

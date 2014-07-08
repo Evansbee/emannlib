@@ -10,9 +10,9 @@ add_executable(BasicDrawingTests ${ALL_SOURCE_FILES})
 
 
 if(MSVC)
-target_link_libraries(BasicDrawingTests PUBLIC ${FREETYPE_LIBRARY} ${GLEW_LIBRARY} ${GLFW_LIBRARY} emannlib-graphics emannlib-math emannlib-common ${OPENGL_LIBRARIES})
+target_link_libraries(BasicDrawingTests PUBLIC ${FREETYPE_LIBRARY} ${GLEW_LIBRARY} ${GLFW_LIBRARY} emannlib-graphics emannlib-math emannlib-common emannlib-filesystem ${OPENGL_LIBRARIES})
 endif (MSVC)
 
 if(APPLE)
-target_link_libraries(BasicDrawingTests PUBLIC ${FREETYPE_LIBRARY} ${GLEW_LIBRARY} ${GLFW_LIBRARY} emannlib-graphics.a emannlib-math.a emannlib-common.a ${EXTRA_LIBS})
+target_link_libraries(BasicDrawingTests PUBLIC ${FREETYPE_LIBRARY} ${GLEW_LIBRARY} ${GLFW_LIBRARY} emannlib-graphics emannlib-math emannlib-common emannlib-filesystem ${EXTRA_LIBS})
 endif (APPLE)

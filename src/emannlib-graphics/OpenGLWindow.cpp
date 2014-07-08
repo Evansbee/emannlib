@@ -3,7 +3,8 @@
 #include <iostream>
 
 #include "../emannlib-common/AutoProfile.hpp"
-
+#include "../emannlib-filesystem/Path.hpp"
+#include "../emannlib-filesystem/FileSystemAccess.hpp"
 namespace emannlib
 {
 	
@@ -64,10 +65,42 @@ namespace emannlib
 				return;
 			}
 
+			std::cout << "WD: " << GetWorkingDirectory();
+			
+			std::vector<std::shared_ptr<Shader > > shaders;
+			shaders.push_back(std::make_shared<Shader>("..\\..\\..\\assets\\2dDrawing.vert", GL_VERTEX_SHADER));
+			shaders.push_back(std::make_shared<Shader>("..\\..\\..\\assets\\2dDrawing.frag", GL_FRAGMENT_SHADER));
+
+			m_Program = std::make_shared<Program>(shaders);
+
+			m_Program->Use();
+			//bind and describe VBO;
+			glGenVertexArrays(1, &m_VAO);
+			glBindVertexArray(m_VAO);
+
+			glVertexAttribPointer(m_Program->Attribute("VertexPosition"), 3, GL_FLOAT, GL_FALSE, sizeof(VertexDescriptor), 0);
+			glVertexAttribPointer(m_Program->Attribute("VertexColor"), 4, GL_FLOAT, GL_FALSE, sizeof(VertexDescriptor), (GLvoid *) 3);
+			glVertexAttribPointer(m_Program->Attribute("VertexNormal"), 3, GL_FLOAT, GL_FALSE, sizeof(VertexDescriptor), (GLvoid *) 7);
+			glVertexAttribPointer(m_Program->Attribute("VertexTextureCoordinates"), 2, GL_FLOAT, GL_FALSE, sizeof(VertexDescriptor), (GLvoid *) 10);
+
+			GLint F = GL_FALSE;
+
+			m_Program->SetUniform("HasColors", F);
+			m_Program->SetUniform("HasTextures", F);
+			m_Program->SetUniform("HasNormals", F);
+			m_Program->SetUniform("AmbientLightColor", 1.0, 1.0, 1.0, 1.0);
+
 			ModelViewLoadIdentity();
+
+			
+
+
+			
 
 			SetViewportSize(newWidth, newHeight);
 			Ortho2D(-newWidth / 2., newWidth / 2., -newHeight / 2., newHeight / 2., 1.f, -1.f);
+
+			//m_Program->StopUsing();
 
 			glfwSetWindowSizeCallback(m_ActiveWindow, WindowSizeCallback);
 			glfwSetFramebufferSizeCallback(m_ActiveWindow, FrameBufferSizeCallback);
@@ -82,30 +115,9 @@ namespace emannlib
 			m_DebugCallbackActive = true;
 		}
 
-		glEnable(GL_TEXTURE_2D);
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        std::vector<std::shared_ptr<Shader > > shaders;
-        shaders.push_back(std::make_shared<Shader>("../assets/2dDrawing.vert",GL_VERTEX_SHADER));
-        shaders.push_back(std::make_shared<Shader>("../assets/2dDrawing.frag",GL_FRAGMENT_SHADER));
         
-        m_Program = std::make_shared<Program>(shaders);
-        
-        m_Program->Use();
-        //bind and describe VBO;
-        glGenVertexArrays(1, &m_VAO);
-        
-        glVertexAttribPointer(m_Program->Attribute("VertexPosition"), 3, GL_FLOAT, GL_FALSE, sizeof(VertexDescriptor), 0);
-        glVertexAttribPointer(m_Program->Attribute("VertexColor"), 4, GL_FLOAT, GL_FALSE, sizeof(VertexDescriptor), (GLvoid *)3);
-        glVertexAttribPointer(m_Program->Attribute("VertexNormal"), 3, GL_FLOAT, GL_FALSE, sizeof(VertexDescriptor), (GLvoid *)7);
-        glVertexAttribPointer(m_Program->Attribute("VertexTextureCoordinates"), 2, GL_FLOAT, GL_FALSE, sizeof(VertexDescriptor), (GLvoid *)10);
-        
-        m_Program->SetUniform("HasColors", GL_FALSE);
-        m_Program->SetUniform("HasTextures", GL_FALSE);
-        m_Program->SetUniform("HasNormals", GL_FALSE);
-        m_Program->SetUniform("AmbientLightColor",1.0,1.0,1.0,1.0);
-        
-        m_Program->StopUsing();
 	}
 
 	//window Management
@@ -150,6 +162,7 @@ namespace emannlib
 
 	void OpenGLWindow::BeginDraw(float r, float g, float b, float a) const
 	{
+		m_Program->Use();
 		glClearColor(r, g, b, a);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
@@ -177,7 +190,7 @@ namespace emannlib
 		}
 		glfwSwapBuffers(m_ActiveWindow);
 		glfwPollEvents();
-		
+		//m_Program->StopUsing();
 	}
 
 	//OGL Control
@@ -269,9 +282,10 @@ namespace emannlib
 		//glLoadMatrixf(glm::value_ptr(m_CurrentTransform.m_ProjectionMatrix.top()));
 		//glMatrixMode(GL_MODELVIEW);
 		//glLoadMatrixf(glm::value_ptr(m_CurrentTransform.m_ModelViewMatrix.top()));
-        
+		m_Program->Use();
         m_Program->SetUniform("ProjectionMatrix",m_CurrentTransform.m_ProjectionMatrix.top());
         m_Program->SetUniform("ModelViewMatrix",m_CurrentTransform.m_ModelViewMatrix.top());
+		//m_Program->StopUsing();
 	}
 
 
@@ -285,7 +299,7 @@ namespace emannlib
 	}
 	void OpenGLWindow::DrawLine(const Vec2f& start, const Vec2f& stop, float strokeWidth)
 	{
-
+		return;
 		Vec2f spanVector = stop - start;
 
 		float bodyLength = spanVector.Length();
@@ -345,19 +359,29 @@ namespace emannlib
 		}
 		if (numSides < 2) numSides = 2;
 
-		GLfloat *verts = new float[(numSides + 2) * 2];
-		verts[0] = center.x;
-		verts[1] = center.y;
+		VertexDescriptor *vertDescriptors = new VertexDescriptor[numSides + 2];
+
+		vertDescriptors[0].x = center.x;
+		vertDescriptors[0].y = center.y;
+		vertDescriptors[0].z = 0.f;
+
 		for (int s = 0; s <= numSides; s++) {
 			float t = s / (float) numSides * 2.0f * 3.14159f;
-			verts[(s + 1) * 2 + 0] = center.x + Math<float>::Cos(t) * radius;
-			verts[(s + 1) * 2 + 1] = center.y + Math<float>::Sin(t) * radius;
+			vertDescriptors[s].x = center.x + Math<float>::Cos(t) * radius;
+			vertDescriptors[s].y = center.y + Math<float>::Sin(t) * radius;
+			vertDescriptors[s].z = 0.f;
 		}
-		glEnableClientState(GL_VERTEX_ARRAY);
-		glVertexPointer(2, GL_FLOAT, 0, verts);
+
+		GLuint tempVbo;
+		m_Program->Use();
+		glGenBuffers(1, &tempVbo);
+		glBindBuffer(GL_ARRAY_BUFFER, tempVbo);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertDescriptors), vertDescriptors, GL_STATIC_DRAW);
 		glDrawArrays(GL_TRIANGLE_FAN, 0, numSides + 2);
-		glDisableClientState(GL_VERTEX_ARRAY);
-		delete [] verts;
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		//m_Program->StopUsing();
+		delete [] vertDescriptors;
+
 	}
 	void OpenGLWindow::DrawCirleStroke(const Vec2f& center, float radius, float strokeWidth , int numSides)
 	{
@@ -385,6 +409,7 @@ namespace emannlib
 	}
 	void OpenGLWindow::DrawVector(const Vec2f& start, const Vec2f& target, float vectorLength, float vectorWidth, float headLength, float headWidth)
 	{
+		return;
 		float bodyLength = (vectorLength > headLength) ? (vectorLength - headLength) : (0.0f);
 
 		Vec2f spanVector = target - start;
@@ -427,6 +452,7 @@ namespace emannlib
 	}
 	void OpenGLWindow::DrawPoint(const Vec2f& location, float size )
 	{
+		return;
 		Area sq;
 		sq.m_UpperLeft.x =location.x - size / 2.0f;
 		sq.m_UpperLeft.y = location.y - size / 2.0f;
@@ -447,7 +473,10 @@ namespace emannlib
 	}
 	void OpenGLWindow::SetColor(float r, float g, float b, float a)
 	{
-		glColor4f(r, g, b, a);
+		//glColor4f(r, g, b, a);
+		m_Program->Use();
+		m_Program->SetUniform("AmbientLightColor", r,g,b,a);
+		m_Program->StopUsing();
 	}
 
 	//static callbacks

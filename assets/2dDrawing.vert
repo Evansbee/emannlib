@@ -7,9 +7,9 @@ uniform bool HasNormals;
 uniform mat4 ModelViewMatrix;
 uniform mat4 ProjectionMatrix;
 
-uniform smapler2D TextureID;
+uniform sampler2D TextureID;
 
-uinform vec4 AmbientLightColor;
+uniform vec4 AmbientLightColor;
 
 
 in vec3 VertexPosition;
