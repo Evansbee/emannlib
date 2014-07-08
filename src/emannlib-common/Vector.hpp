@@ -34,6 +34,7 @@ namespace emannlib
                 T x;
                 T y;
             };
+			T d[2];
         };
 
 		//For Return Type Junk

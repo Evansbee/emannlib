@@ -38,9 +38,18 @@ namespace emannlib
 
 		}
 
-		const float * GetData() const
+		explicit Color(const float* d) :
+			m_R(d[0]),
+			m_G(d[1]),
+			m_B(d[2]),
+			m_A(d[3])
 		{
-			return &m_D[0];
+		}
+
+
+		float* GetData() const
+		{
+			return &(const_cast<Color*>(this)->m_R);
 		}
 
 		float R() const
@@ -63,7 +72,18 @@ namespace emannlib
 			return m_A;
 		}
 
+		void AdditiveBlend(const Color& OtherColor)
+		{
 
+		}
+		void AlphaBlend(const Color& OtherColor)
+		{
+
+		}
+		void MutliplicativeBlend(const Color& OtherColor)
+		{
+
+		}
 	};
 }
 
