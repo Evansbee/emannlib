@@ -110,6 +110,10 @@ namespace emannlib
 
 		GLFWwindow *m_ActiveWindow;
 
+        float m_CurrentColorR;
+        float m_CurrentColorG;
+        float m_CurrentColorB;
+        float m_CurrentColorA;
 
 		//drawing
 	public:
@@ -134,6 +138,21 @@ namespace emannlib
 		
 
 	};
+    
+    struct VertexDescriptor
+    {
+        float x;
+        float y;
+        float z;
+        
+        float r;
+        float g;
+        float b;
+        float a;
+        
+        float u;
+        float v;
+    };
 }
 
 #endif
