@@ -9,6 +9,9 @@ uniform mat4 ProjectionMatrix;
 
 uniform smapler2D TextureID;
 
+uinform vec4 AmbientLightColor;
+
+
 in vec3 VertexPosition;
 in vec4 VertexColor;
 in vec3 VertexNormal;
@@ -20,7 +23,14 @@ out vec2 FragmentTextureCoordinates;
 void main()
 {
 	FragmentTextureCoordinates = VertexTextureCoordinates;
-	FragmentColor = VertexColor;
+	
+        vec4 workingColor = vec4(1.0,1.0,1.0,1.0);
+        if(HasColors)
+    {
+    workingColor = VertexColor;
+    }
+        
+        FragmentColor = workingColor * AmbientLightColor;
 	
 	gl_Position = ProjectionMatrix * ModelViewMatrix * vec4(VertexPosition, 1.0);
 }

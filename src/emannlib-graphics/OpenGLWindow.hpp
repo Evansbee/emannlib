@@ -3,6 +3,7 @@
 
 #include "../emannlib-common/Singleton.hpp"
 #include "Texture.hpp"
+#include "Shader.hpp"
 #include "Area.hpp"
 
 #include "../emannlib-common/Vector.hpp"
@@ -135,8 +136,11 @@ namespace emannlib
 		static void FrameBufferSizeCallback(GLFWwindow *activeWindow, int newWidth, int newHeight);
 		static void WindowSizeCallback(GLFWwindow *activeWindow, int newWidth, int newHeight);
 
-		
+    private:
+        GLuint m_VAO;
+        std::shared_ptr<Program> m_Program;
 
+        
 	};
     
     struct VertexDescriptor

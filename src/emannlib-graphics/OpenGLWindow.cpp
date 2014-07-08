@@ -87,6 +87,27 @@ namespace emannlib
 		glEnable(GL_TEXTURE_2D);
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        std::vector<std::shared_ptr<Shader > > shaders;
+        shaders.push_back(std::make_shared<Shader>("../assets/2dDrawing.vert",GL_VERTEX_SHADER));
+        shaders.push_back(std::make_shared<Shader>("../assets/2dDrawing.frag",GL_FRAGMENT_SHADER));
+        
+        m_Program = std::make_shared<Program>(shaders);
+        
+        m_Program->Use();
+        //bind and describe VBO;
+        glGenVertexArrays(1, &m_VAO);
+        
+        glVertexAttribPointer(m_Program->Attribute("VertexPosition"), 3, GL_FLOAT, GL_FALSE, sizeof(VertexDescriptor), 0);
+        glVertexAttribPointer(m_Program->Attribute("VertexColor"), 4, GL_FLOAT, GL_FALSE, sizeof(VertexDescriptor), (GLvoid *)3);
+        glVertexAttribPointer(m_Program->Attribute("VertexNormal"), 3, GL_FLOAT, GL_FALSE, sizeof(VertexDescriptor), (GLvoid *)7);
+        glVertexAttribPointer(m_Program->Attribute("VertexTextureCoordinates"), 2, GL_FLOAT, GL_FALSE, sizeof(VertexDescriptor), (GLvoid *)10);
+        
+        m_Program->SetUniform("HasColors", GL_FALSE);
+        m_Program->SetUniform("HasTextures", GL_FALSE);
+        m_Program->SetUniform("HasNormals", GL_FALSE);
+        m_Program->SetUniform("AmbientLightColor",1.0,1.0,1.0,1.0);
+        
+        m_Program->StopUsing();
 	}
 
 	//window Management
@@ -225,10 +246,13 @@ namespace emannlib
 
 
 	void OpenGLWindow::updateMatrixState(){
-		glMatrixMode(GL_PROJECTION);
-		glLoadMatrixf(glm::value_ptr(m_CurrentTransform.m_ProjectionMatrix.top()));
-		glMatrixMode(GL_MODELVIEW);
-		glLoadMatrixf(glm::value_ptr(m_CurrentTransform.m_ModelViewMatrix.top()));
+		//glMatrixMode(GL_PROJECTION);
+		//glLoadMatrixf(glm::value_ptr(m_CurrentTransform.m_ProjectionMatrix.top()));
+		//glMatrixMode(GL_MODELVIEW);
+		//glLoadMatrixf(glm::value_ptr(m_CurrentTransform.m_ModelViewMatrix.top()));
+        
+        m_Program->SetUniform("ProjectionMatrix",m_CurrentTransform.m_ProjectionMatrix.top());
+        m_Program->SetUniform("ModelViewMatrix",m_CurrentTransform.m_ModelViewMatrix.top());
 	}
 
 

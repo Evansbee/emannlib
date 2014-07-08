@@ -254,6 +254,7 @@ namespace emannlib
 	void Program::SetAttribute(const std::string& attributeName, const glm::ivec3& value) const{ assert(IsInUse()); glVertexAttribI3iv(Attribute(attributeName), glm::value_ptr(value)); }
 	void Program::SetAttribute(const std::string& attributeName, const glm::ivec2& value) const{ assert(IsInUse()); glVertexAttribI2iv(Attribute(attributeName), glm::value_ptr(value)); }
 		 
+    
 	void Program::SetUniform(const std::string& uniformName, const GLint& value) const{ assert(IsInUse()); glUniform1i(Uniform(uniformName), value); }
 	void Program::SetUniform(const std::string& uniformName, const GLuint& value) const{ assert(IsInUse()); glUniform1ui(Uniform(uniformName), value); }
 	void Program::SetUniform(const std::string& uniformName, const GLfloat& value) const{ assert(IsInUse()); glUniform1f(Uniform(uniformName), value); }
