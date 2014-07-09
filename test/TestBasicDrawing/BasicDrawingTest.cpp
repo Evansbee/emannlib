@@ -77,6 +77,7 @@ int main(int argc, char ** argv)
 	{
 		frameCount++;
 		
+		
 		if (pList.size() < 800)
 		{
 			pList.push_back(new Particle());
@@ -86,7 +87,7 @@ int main(int argc, char ** argv)
 		i++;
 
 		current = emannlib::Time().GetCurrentTime();
-		emannlib::OpenGLWindow::GetSingleton().BeginDraw(.9f, .9f, .9f);
+		emannlib::OpenGLWindow::GetSingleton().BeginDraw(.7f, .7f, .7f);
 		//emannlib::OpenGLWindow::GetSingleton().ClearFrameTriangleCount();
 		for (auto p : pList)
 		{
@@ -106,7 +107,7 @@ int main(int argc, char ** argv)
 		frameTime += dt;
 		if (frameTime > 1.0)
 		{
-			std::cout << "FPS: " << frameCount << " Triangles: " <<std::endl;
+			//std::cout << "FPS: " << frameCount << " Triangles: " <<std::endl;
 			frameTime = 0.0;
 			frameCount = 0;
 		}

@@ -65,7 +65,6 @@ namespace emannlib
 				return;
 			}
 
-			std::cout << "WD: " << GetWorkingDirectory();
 			
 			std::vector<std::shared_ptr<Shader > > shaders;
 			shaders.push_back(std::make_shared<Shader>("..\\..\\..\\assets\\2dDrawing.vert", GL_VERTEX_SHADER));
@@ -75,15 +74,11 @@ namespace emannlib
 
 			m_Program->Use();
 			//bind and describe VBO;
-			glGenVertexArrays(1, &m_VAO);
-			glBindVertexArray(m_VAO);
-
-			glVertexAttribPointer(m_Program->Attribute("VertexPosition"), 3, GL_FLOAT, GL_FALSE, sizeof(VertexDescriptor), 0);
-			glVertexAttribPointer(m_Program->Attribute("VertexColor"), 4, GL_FLOAT, GL_FALSE, sizeof(VertexDescriptor), (GLvoid *) 3);
-			glVertexAttribPointer(m_Program->Attribute("VertexNormal"), 3, GL_FLOAT, GL_FALSE, sizeof(VertexDescriptor), (GLvoid *) 7);
-			glVertexAttribPointer(m_Program->Attribute("VertexTextureCoordinates"), 2, GL_FLOAT, GL_FALSE, sizeof(VertexDescriptor), (GLvoid *) 10);
-
-			GLint F = GL_FALSE;
+			GLuint vao = 0;
+			glGenVertexArrays(1, &vao);
+			glBindVertexArray(vao);
+			
+			GLboolean F = GL_FALSE;
 
 			m_Program->SetUniform("HasColors", F);
 			m_Program->SetUniform("HasTextures", F);
@@ -91,11 +86,7 @@ namespace emannlib
 			m_Program->SetUniform("AmbientLightColor", 1.0, 1.0, 1.0, 1.0);
 
 			ModelViewLoadIdentity();
-
-			
-
-
-			
+					
 
 			SetViewportSize(newWidth, newHeight);
 			Ortho2D(-newWidth / 2., newWidth / 2., -newHeight / 2., newHeight / 2., 1.f, -1.f);
@@ -190,7 +181,7 @@ namespace emannlib
 		}
 		glfwSwapBuffers(m_ActiveWindow);
 		glfwPollEvents();
-		//m_Program->StopUsing();
+		m_Program->StopUsing();
 	}
 
 	//OGL Control
@@ -278,14 +269,11 @@ namespace emannlib
 
 
 	void OpenGLWindow::updateMatrixState(){
-		//glMatrixMode(GL_PROJECTION);
-		//glLoadMatrixf(glm::value_ptr(m_CurrentTransform.m_ProjectionMatrix.top()));
-		//glMatrixMode(GL_MODELVIEW);
-		//glLoadMatrixf(glm::value_ptr(m_CurrentTransform.m_ModelViewMatrix.top()));
+		
 		m_Program->Use();
         m_Program->SetUniform("ProjectionMatrix",m_CurrentTransform.m_ProjectionMatrix.top());
         m_Program->SetUniform("ModelViewMatrix",m_CurrentTransform.m_ModelViewMatrix.top());
-		//m_Program->StopUsing();
+		
 	}
 
 
@@ -359,26 +347,59 @@ namespace emannlib
 		}
 		if (numSides < 2) numSides = 2;
 
+
 		VertexDescriptor *vertDescriptors = new VertexDescriptor[numSides + 2];
+
 
 		vertDescriptors[0].x = center.x;
 		vertDescriptors[0].y = center.y;
 		vertDescriptors[0].z = 0.f;
-
+		vertDescriptors[0].r = 0.f;
+		vertDescriptors[0].g = 0.f;
+		vertDescriptors[0].b = 0.f;
+		vertDescriptors[0].a = 0.f;
+		vertDescriptors[0].u = 0.f;
+		vertDescriptors[0].v = 0.f;
 		for (int s = 0; s <= numSides; s++) {
-			float t = s / (float) numSides * 2.0f * 3.14159f;
-			vertDescriptors[s].x = center.x + Math<float>::Cos(t) * radius;
-			vertDescriptors[s].y = center.y + Math<float>::Sin(t) * radius;
-			vertDescriptors[s].z = 0.f;
+			float t = s / (float) numSides * 2.0f * Math<float>::PI;
+			vertDescriptors[s+1].x = center.x + Math<float>::Cos(t) * radius;
+			vertDescriptors[s+1].y = center.y + Math<float>::Sin(t) * radius;
+			vertDescriptors[s+1].z = 0.f;
+			vertDescriptors[s+1].r = 0.f;
+			vertDescriptors[s+1].g = 0.f;
+			vertDescriptors[s+1].b = 0.f;
+			vertDescriptors[s+1].a = 0.f;
+			vertDescriptors[s+1].u = 0.f;
+			vertDescriptors[s+1].v = 0.f;
 		}
 
 		GLuint tempVbo;
-		m_Program->Use();
+
+	
 		glGenBuffers(1, &tempVbo);
 		glBindBuffer(GL_ARRAY_BUFFER, tempVbo);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertDescriptors), vertDescriptors, GL_STATIC_DRAW);
+		
+		
+		glBufferData(GL_ARRAY_BUFFER, sizeof(VertexDescriptor) * (numSides + 2), vertDescriptors, GL_STATIC_DRAW);
+		
+		auto a = m_Program->Attribute("VertexPosition");
+		glEnableVertexAttribArray(m_Program->Attribute("VertexPosition"));
+		glVertexAttribPointer(m_Program->Attribute("VertexPosition"), 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+		auto b = m_Program->Attribute("VertexColor");
+		glEnableVertexAttribArray(m_Program->Attribute("VertexColor"));
+		glVertexAttribPointer(m_Program->Attribute("VertexColor"), 4, GL_FLOAT, GL_FALSE, sizeof(VertexDescriptor), (GLvoid *) (3 * sizeof(GL_FLOAT)));
+
+		auto c = m_Program->Attribute("VertexTextureCoordinates");
+		glEnableVertexAttribArray(m_Program->Attribute("VertexTextureCoordinates"));
+		glVertexAttribPointer(m_Program->Attribute("VertexTextureCoordinates"), 2, GL_FLOAT, GL_FALSE, sizeof(VertexDescriptor), (GLvoid *) (7 * sizeof(GL_FLOAT)));
+
 		glDrawArrays(GL_TRIANGLE_FAN, 0, numSides + 2);
+		
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glDeleteBuffers(1,&tempVbo);
+		glBindVertexArray(0);
+		//glDeleteBuffers(1, &tempVbo);
 		//m_Program->StopUsing();
 		delete [] vertDescriptors;
 
