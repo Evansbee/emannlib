@@ -34,8 +34,17 @@ namespace emannlib
 		std::string m_Name;
 		bool m_Active;
 
-	public:
 
+		//block generic construction....
+	private:
+		RenderableObject();
+
+
+	public:
+		static uint32_t ms_NextID;
+
+	public:
+		static std::shared_ptr<RenderableObject> GenerateCircle();
 
 	};
 }
