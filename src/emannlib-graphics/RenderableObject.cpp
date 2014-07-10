@@ -15,7 +15,9 @@ namespace emannlib
 		m_ChildObjects(),
 		m_ID(ms_NextID++),
 		m_Name("Unnamed Object"),
-		m_Active(true)
+		m_Active(true),
+		m_TypeOfElementsToDraw(GL_TRIANGLES),
+		m_NumberOfElementsToDraw(0)
 	{}
 
 
@@ -23,7 +25,8 @@ namespace emannlib
 	{
 		std::shared_ptr<RenderableObject> obj = std::make_shared<RenderableObject>();
 
-		
+		typedef struct { float x; float y; float z; } VERTEX;
+		std::vector<VERTEX> vertexArray;
 		
 		
 		glGenVertexArrays(1, &(obj->m_VAO));

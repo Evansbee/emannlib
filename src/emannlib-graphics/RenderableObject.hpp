@@ -33,6 +33,8 @@ namespace emannlib
 		uint32_t m_ID;
 		std::string m_Name;
 		bool m_Active;
+		uint8_t m_TypeOfElementsToDraw;
+		uint32_t m_NumberOfElementsToDraw;
 
 
 		//block generic construction....

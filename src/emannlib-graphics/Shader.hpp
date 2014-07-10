@@ -41,6 +41,36 @@ Purpose       :
 
 namespace emannlib
 {
+
+	struct VertexPosition
+	{
+		float x;
+		float y;
+		float z;
+	};
+
+	struct VertexNormal
+	{
+		float x;
+		float y;
+		float z;
+	};
+
+	struct VertexColor
+	{
+		float r;
+		float g;
+		float b;
+		float a;
+	};
+
+	struct VertexTextureCoordinate
+	{
+		float u;
+		float v;
+	};
+
+
 	class Shader
 	{
 
