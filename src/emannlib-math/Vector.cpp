@@ -2,5 +2,5 @@
 
 namespace emannlib
 {
-
+	class Vec2f;
 }
