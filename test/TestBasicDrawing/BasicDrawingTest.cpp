@@ -1,12 +1,14 @@
 #include <iostream>
 
 #include "emannlib-graphics/OpenGLWindow.hpp"
+#include "emannlib-graphics/Shader.hpp"
+
 //#include "emannlib-graphics\GLDraw.hpp"
 
 #include "emannlib-common/Singleton.hpp"
 #include "emannlib-common/Time.hpp"
 #include "emannlib-math/Math.hpp"
-#include "emannlib-common/Vector.hpp"
+#include "emannlib-math/Vector.hpp"
 
 class Particle
 {
@@ -62,6 +64,41 @@ public:
 
 int main(int argc, char ** argv)
 {
+	emannlib::ShaderBuilder *vs = new emannlib::ShaderBuilder(GL_VERTEX_SHADER);
+	emannlib::ShaderBuilder *fs = new emannlib::ShaderBuilder(GL_FRAGMENT_SHADER);
+
+	vs->AddLine("#version 330");
+
+	vs->AddLine("uniform bool HasTextures;");
+	vs->AddLine("uniform bool HasColors;");
+	vs->AddLine("uniform bool HasNormals;");
+	vs->AddLine("uniform mat4 ModelViewMatrix;");
+	vs->AddLine("uniform mat4 ProjectionMatrix;");
+	vs->AddLine("uniform sampler2D TextureID;");
+	vs->AddLine("uniform vec4 AmbientLightColor;");
+	
+	vs->AddLine("in vec3 VertexPosition;");
+	vs->AddLine("in vec4 VertexColor;");
+	vs->AddLine("in vec3 VertexNormal;");
+	vs->AddLine("in vec2 VertexTextureCoordinates;");
+	
+	vs->AddLine("out vec4 FragmentColor;");
+	vs->AddLine("out vec2 FragmentTextureCoordinates;");
+	
+	vs->AddLine("void main()");
+	vs->AddLine("{");
+	vs->AddLine("FragmentTextureCoordinates = VertexTextureCoordinates;");
+	vs->AddLine("vec4 workingColor = vec4(1.0, 1.0, 1.0, 1.0);");
+	vs->AddLine("if (HasColors)");
+	vs->AddLine("{");
+	vs->AddLine("workingColor = VertexColor;");
+	vs->AddLine("}");
+	vs->AddLine("FragmentColor = workingColor * AmbientLightColor;");
+	vs->AddLine("gl_Position = ProjectionMatrix * ModelViewMatrix * vec4(VertexPosition, 1.0);");
+	vs->AddLine("}");
+
+	std::string theSource = vs->GetSource();
+
 	std::vector<Particle *> pList;
 	pList.reserve(1000);
 	new emannlib::OpenGLWindow(1000,600,argv[0]);

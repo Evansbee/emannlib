@@ -38,7 +38,7 @@ namespace emannlib
 
 
 		//block generic construction....
-	private:
+	public:
 		RenderableObject();
 
 

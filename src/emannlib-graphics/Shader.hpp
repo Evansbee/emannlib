@@ -184,4 +184,16 @@ namespace emannlib
 		GLuint m_ProgramID;
 	};
 
+
+	class ShaderBuilder
+	{
+	public:
+		ShaderBuilder(uint32_t type);
+		void AddLine(const std::string& newLine);
+		std::string GetSource() const;
+		uint32_t GetType() const;
+	private:
+		uint32_t m_ShaderType;
+		std::string m_ShaderSource;
+	};
 }

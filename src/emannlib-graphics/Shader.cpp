@@ -289,4 +289,33 @@ namespace emannlib
 	void Program::SetUniform(const std::string& uniformName, const glm::ivec4& value) const{ assert(IsInUse());  glUniform4iv(Uniform(uniformName), 1, glm::value_ptr(value)); }
 	void Program::SetUniform(const std::string& uniformName, const glm::ivec3& value) const{ assert(IsInUse()); glUniform3iv(Uniform(uniformName), 1, glm::value_ptr(value)); }
 	void Program::SetUniform(const std::string& uniformName, const glm::ivec2& value) const{ assert(IsInUse()); glUniform2iv(Uniform(uniformName), 1, glm::value_ptr(value)); }
+
+
+
+
+
+	ShaderBuilder::ShaderBuilder(uint32_t type) :
+		m_ShaderType(type),
+		m_ShaderSource("")
+	{}
+
+	void ShaderBuilder::AddLine(const std::string& newLine)
+	{
+		m_ShaderSource += newLine;
+		m_ShaderSource += "\n";
+	}
+
+	std::string ShaderBuilder::GetSource() const
+	{
+		return m_ShaderSource;
+	}
+
+	uint32_t ShaderBuilder::GetType() const
+	{
+		return m_ShaderType;
+	}
+
+
+
+
 }

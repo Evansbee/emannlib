@@ -31,6 +31,6 @@ namespace emannlib
 		
 		glGenVertexArrays(1, &(obj->m_VAO));
 		
-
+		return obj;
 	}
 }

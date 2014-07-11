@@ -6,7 +6,7 @@
 #include "Shader.hpp"
 #include "Area.hpp"
 
-#include "../emannlib-common/Vector.hpp"
+#include "../emannlib-math/Vector.hpp"
 
 #include <stack>
 #include <memory>
