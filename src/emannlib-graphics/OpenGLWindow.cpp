@@ -383,16 +383,21 @@ namespace emannlib
 		glBufferData(GL_ARRAY_BUFFER, sizeof(VertexDescriptor) * (numSides + 2), vertDescriptors, GL_STATIC_DRAW);
 		
 		auto a = m_Program->Attribute("VertexPosition");
-		glEnableVertexAttribArray(m_Program->Attribute("VertexPosition"));
+		
 		glVertexAttribPointer(m_Program->Attribute("VertexPosition"), 3, GL_FLOAT, GL_FALSE, 0, 0);
+		glEnableVertexAttribArray(m_Program->Attribute("VertexPosition"));
+
 
 		auto b = m_Program->Attribute("VertexColor");
-		glEnableVertexAttribArray(m_Program->Attribute("VertexColor"));
+		
 		glVertexAttribPointer(m_Program->Attribute("VertexColor"), 4, GL_FLOAT, GL_FALSE, sizeof(VertexDescriptor), (GLvoid *) (3 * sizeof(GL_FLOAT)));
+		glEnableVertexAttribArray(m_Program->Attribute("VertexColor"));
 
 		auto c = m_Program->Attribute("VertexTextureCoordinates");
-		glEnableVertexAttribArray(m_Program->Attribute("VertexTextureCoordinates"));
+		
 		glVertexAttribPointer(m_Program->Attribute("VertexTextureCoordinates"), 2, GL_FLOAT, GL_FALSE, sizeof(VertexDescriptor), (GLvoid *) (7 * sizeof(GL_FLOAT)));
+		glEnableVertexAttribArray(m_Program->Attribute("VertexTextureCoordinates"));
+
 
 		glDrawArrays(GL_TRIANGLE_FAN, 0, numSides + 2);
 		
