@@ -22,12 +22,9 @@ namespace emannlib
 		m_WindowWidth(newWidth),
 		m_ViewableHeight((float) newHeight),
 		m_ViewableWidth((float) newWidth),
-		m_CenterPoint(Vec2f(0.0f, 0.0f)),
-		m_DebugCallbackActive(false)
+		m_DebugCallbackActive(false),
+		m_WindowName(name)
 	{
-		m_CurrentTransform.m_ModelViewMatrix.push(glm::mat4());
-		m_CurrentTransform.m_ProjectionMatrix.push(glm::mat4());
-
 		if (glfwInit() == GL_TRUE)
 		{
 		
@@ -64,51 +61,14 @@ namespace emannlib
 				glfwTerminate();
 				return;
 			}
-
-			
-			//std::vector<std::shared_ptr<Shader > > shaders;
-			//shaders.push_back(std::make_shared<Shader>("..\\..\\..\\assets\\2dDrawing.vert", GL_VERTEX_SHADER));
-			//shaders.push_back(std::make_shared<Shader>("..\\..\\..\\assets\\2dDrawing.frag", GL_FRAGMENT_SHADER));
-
-			//m_Program = std::make_shared<Program>(shaders);
-
-			m_Program->Use();
-			//bind and describe VBO;
-			GLuint vao = 0;
-			glGenVertexArrays(1, &vao);
-			glBindVertexArray(vao);
-			
-			GLboolean F = GL_FALSE;
-
-			m_Program->SetUniform("HasColors", F);
-			m_Program->SetUniform("HasTextures", F);
-			m_Program->SetUniform("HasNormals", F);
-			m_Program->SetUniform("AmbientLightColor", 1.0, 1.0, 1.0, 1.0);
-
-			ModelViewLoadIdentity();
 					
 
 			SetViewportSize(newWidth, newHeight);
-			Ortho2D(-newWidth / 2., newWidth / 2., -newHeight / 2., newHeight / 2., 1.f, -1.f);
-
-			//m_Program->StopUsing();
-
+			
 			glfwSetWindowSizeCallback(m_ActiveWindow, WindowSizeCallback);
 			glfwSetFramebufferSizeCallback(m_ActiveWindow, FrameBufferSizeCallback);
 
-		}
-		//need to check if hardware supports this
-		
-		if (GLEW_ARB_debug_output)
-		{
-			glDebugMessageCallbackARB(OpenGLErrorCallback, NULL);
-			glEnable(GL_DEBUG_OUTPUT);
-			m_DebugCallbackActive = true;
-		}
-
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        
+		}        
 	}
 
 	//window Management
