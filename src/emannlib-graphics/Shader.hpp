@@ -41,7 +41,15 @@ Purpose       :
 
 namespace emannlib
 {
-
+	enum
+	{
+		VertexAttribPosition,
+		VertexAttribNormal,
+		VertexAttribColor,
+		VertexAttribTexUV
+	};
+	
+	
 	struct VertexPosition
 	{
 		float x;
@@ -73,20 +81,33 @@ namespace emannlib
 
 	class Shader
 	{
-
-
 		//construction
 	public:
 		Shader();
-		Shader(const std::string& fileName, uint32_t shaderType);
+		Shader(GLuint shaderType);
+
 		~Shader();
 
-		void CreateFromFile(const std::string& fileName, uint32_t shaderType);
-		void CreateFromSource(const std::string& source, uint32_t shaderType);
+		void CreateFromFile(const std::string& fileName, GLuint shaderType);
+		void CreateFromSource(const std::string& source, GLuint shaderType);
+
+		bool Compile();
+		bool IsCompiled() const;
+
+		std::string GetShaderSource() const;
+
+		void SetFromSource(const std::string& newSource);
+		void AppendSource(const std::string& newSource, bool appendNewLine = true);
+
+		std::string GetCompilerOutput() const;
 
 		GLuint GetShaderID() const;
 	private:
 		GLuint m_ShaderID;
+		std::string m_ShaderSource;
+		std::string m_ShaderCompileOutput;
+		GLuint m_ShaderType;
+		bool m_IsCompiled;
 	};
 
 

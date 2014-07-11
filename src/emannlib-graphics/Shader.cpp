@@ -33,18 +33,26 @@ namespace emannlib
 {
 
 	Shader::Shader() :
-		m_ShaderID(0)
+		m_ShaderID(0),
+		m_ShaderCompileOutput("Shader Not Compiled"),
+		m_ShaderSource(""),
+		m_ShaderType(GL_VERTEX_SHADER),
+		m_IsCompiled(false)
 	{
-
+		AUTO_PROFILE("Shader::Shader");
+		m_ShaderID = glCreateShader(m_ShaderType);
 	}
 
-	Shader::Shader(const std::string& fileName, uint32_t shaderType) :
-		m_ShaderID(0)
+	Shader::Shader(GLuint shaderType) :
+		m_ShaderID(0),
+		m_ShaderCompileOutput("Shader Not Compiled"),
+		m_ShaderSource(""),
+		m_ShaderType(shaderType),
+		m_IsCompiled(false)
 	{
-
-		CreateFromFile(fileName, shaderType);
+		AUTO_PROFILE("Shader::Shader");
+		m_ShaderID = glCreateShader(m_ShaderType);
 	}
-
 
 	Shader::~Shader()
 	{
@@ -56,7 +64,7 @@ namespace emannlib
 		m_ShaderID = 0;
 	}
 
-	void Shader::CreateFromFile(const std::string& fileName, uint32_t shaderType)
+	void Shader::CreateFromFile(const std::string& fileName, GLuint shaderType)
 	{
 		AUTO_PROFILE("Shader::CreateFromFile");
 		std::ifstream f;
@@ -65,31 +73,45 @@ namespace emannlib
 		if (!f.is_open())
 		{
 			std::cerr<<"Could note open shaderfile: " <<  fileName.c_str() << std::endl;
+			m_ShaderSource = "";
+			m_ShaderType = shaderType;
+			m_IsCompiled = false;
+			m_ShaderCompileOutput = "Shader not compiled since last change";
+			return;
 		}
 
 		std::stringstream readbuffer;
 		readbuffer << f.rdbuf();
 
-		std::string shaderCode = readbuffer.str();
-		CreateFromSource(shaderCode, shaderType);
+		m_ShaderSource = readbuffer.str();
+		m_ShaderType = shaderType;
+		m_IsCompiled = false;
+		m_ShaderCompileOutput = "Shader not compiled since last change";
 	}
 
 
-	void Shader::CreateFromSource(const std::string& source, uint32_t shaderType)
+	
+
+	GLuint Shader::GetShaderID() const
 	{
-		AUTO_PROFILE("Shader::CreateFromSource");
+		return m_ShaderID;
+	}
+
+
+
+	bool Shader::Compile()
+	{
+
+		const GLchar *source = m_ShaderSource.c_str();
+
 		if (glIsShader(m_ShaderID))
 		{
-
 			glDeleteShader(m_ShaderID);
 		}
 
-		m_ShaderID = glCreateShader(shaderType);
+		m_ShaderID = glCreateShader(m_ShaderType);
 
-		const char *code = source.c_str();
-
-		glShaderSource(m_ShaderID, 1, (const char**) &code, NULL);
-
+		glShaderSource(m_ShaderID, 1, &source, NULL);
 		glCompileShader(m_ShaderID);
 
 		GLint status;
@@ -97,19 +119,47 @@ namespace emannlib
 
 		if (status == GL_FALSE)
 		{
-			GLint len;
-			glGetShaderiv(m_ShaderID, GL_INFO_LOG_LENGTH, &len);
-
-			char *infoLog = new char[len + 1];
-			glGetShaderInfoLog(m_ShaderID, len, NULL, infoLog);
-			std::cerr << infoLog << std::endl;
-			//LOG_ERROR("Failed to compile shader: %s", infoLog);
+			GLint errorLogLength;
+			glGetShaderiv(m_ShaderID, GL_INFO_LOG_LENGTH, &errorLogLength);
+			m_ShaderCompileOutput.reserve(errorLogLength + 1);
+			glGetShaderInfoLog(m_ShaderID, errorLogLength, NULL, (GLchar *) m_ShaderCompileOutput.c_str());
+			m_IsCompiled = false;
+			
 		}
+		else
+		{
+			m_ShaderCompileOutput = "Compile Success";
+			m_IsCompiled = true;
+		}
+		return m_IsCompiled;
+	}
+	bool Shader::IsCompiled() const
+	{
+		return m_IsCompiled;
 	}
 
-	GLuint Shader::GetShaderID() const
+	std::string Shader::GetShaderSource() const{ return m_ShaderSource; }
+
+	void Shader::SetFromSource(const std::string& newSource)
 	{
-		return m_ShaderID;
+		m_ShaderSource = newSource;
+		m_IsCompiled = false;
+		m_ShaderCompileOutput = "Shader not recompiled since change";
+	}
+	void Shader::AppendSource(const std::string& newSource, bool appendNewLine)
+	{
+		m_ShaderSource += newSource;
+		if (appendNewLine)
+		{
+			m_ShaderSource += "\n";
+		}
+		m_IsCompiled = false;
+		m_ShaderCompileOutput = "Shader not recompiled since change";
+	}
+
+	std::string Shader::GetCompilerOutput() const
+	{
+		return m_ShaderCompileOutput;
 	}
 
 

@@ -66,11 +66,11 @@ namespace emannlib
 			}
 
 			
-			std::vector<std::shared_ptr<Shader > > shaders;
-			shaders.push_back(std::make_shared<Shader>("..\\..\\..\\assets\\2dDrawing.vert", GL_VERTEX_SHADER));
-			shaders.push_back(std::make_shared<Shader>("..\\..\\..\\assets\\2dDrawing.frag", GL_FRAGMENT_SHADER));
+			//std::vector<std::shared_ptr<Shader > > shaders;
+			//shaders.push_back(std::make_shared<Shader>("..\\..\\..\\assets\\2dDrawing.vert", GL_VERTEX_SHADER));
+			//shaders.push_back(std::make_shared<Shader>("..\\..\\..\\assets\\2dDrawing.frag", GL_FRAGMENT_SHADER));
 
-			m_Program = std::make_shared<Program>(shaders);
+			//m_Program = std::make_shared<Program>(shaders);
 
 			m_Program->Use();
 			//bind and describe VBO;
