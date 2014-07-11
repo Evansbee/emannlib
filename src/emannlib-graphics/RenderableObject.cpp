@@ -16,48 +16,48 @@ namespace emannlib
 		m_TypeOfElementsToDraw(GL_TRIANGLES),
 		m_NumberOfElementsToDraw(0)
 	{
-		glGenVertexArrays(1, &m_VAO);
-		glBindVertexArray(m_VAO);
+		//glGenVertexArrays(1, &m_VAO);
+		//glBindVertexArray(m_VAO);
 	
-		GLuint vbo;
-		glGenBuffers(1, &vbo);
-		glBind
+		//GLuint vbo;
+		//glGenBuffers(1, &vbo);
+		//glBind
 
-			GLuint vbo_VertexPositions;
+		//	GLuint vbo_VertexPositions;
 
-		glGenBuffers(1, &vbo_VertexPositions);
-		glBindBuffer(GL_ARRAY_BUFFER, vbo_VertexPositions);
+		//glGenBuffers(1, &vbo_VertexPositions);
+		//glBindBuffer(GL_ARRAY_BUFFER, vbo_VertexPositions);
 
-		GLfloat vertexData [] = {
-			//  X     Y     Z
-			0.0f, 100.f, 0.0f,
-			-100.f, -100.f, 0.0f,
-			100.f, -100.f, 0.0f,
-		};
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
+		//GLfloat vertexData [] = {
+		//	//  X     Y     Z
+		//	0.0f, 100.f, 0.0f,
+		//	-100.f, -100.f, 0.0f,
+		//	100.f, -100.f, 0.0f,
+		//};
+		//glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
 
-		glVertexAttribPointer(vertAttribposition, 3, GL_FLOAT, GL_FALSE, 0, 0);
-		glEnableVertexAttribArray(vertAttribposition);
+		//glVertexAttribPointer(vertAttribposition, 3, GL_FLOAT, GL_FALSE, 0, 0);
+		//glEnableVertexAttribArray(vertAttribposition);
 
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		//glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-		GLuint vbo_VertexColors;
+		//GLuint vbo_VertexColors;
 
-		glGenBuffers(1, &vbo_VertexColors);
-		glBindBuffer(GL_ARRAY_BUFFER, vbo_VertexColors);
+		//glGenBuffers(1, &vbo_VertexColors);
+		//glBindBuffer(GL_ARRAY_BUFFER, vbo_VertexColors);
 
-		GLfloat vertColors [] = {
-			1.0f, 0.0f, 0.0f, 1.0f,
-			0.0f, 1.0f, 0.0f, 1.0f,
-			0.0f, 0.0f, 1.0f, 1.0f,
-		};
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertColors), vertColors, GL_STATIC_DRAW);
+		//GLfloat vertColors [] = {
+		//	1.0f, 0.0f, 0.0f, 1.0f,
+		//	0.0f, 1.0f, 0.0f, 1.0f,
+		//	0.0f, 0.0f, 1.0f, 1.0f,
+		//};
+		//glBufferData(GL_ARRAY_BUFFER, sizeof(vertColors), vertColors, GL_STATIC_DRAW);
 
-		glVertexAttribPointer(vertAttribColor, 4, GL_FLOAT, GL_FALSE, 0, 0);
-		glEnableVertexAttribArray(vertAttribColor);
+		//glVertexAttribPointer(vertAttribColor, 4, GL_FLOAT, GL_FALSE, 0, 0);
+		//glEnableVertexAttribArray(vertAttribColor);
 
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glBindVertexArray(0);
+		//glBindBuffer(GL_ARRAY_BUFFER, 0);
+		//glBindVertexArray(0);
 	
 	}
 
