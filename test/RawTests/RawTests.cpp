@@ -8,8 +8,8 @@
 #include "emannlib-common/Singleton.hpp"
 #include "emannlib-common/Time.hpp"
 #include "emannlib-math/Math.hpp"
-#include "emannlib-math/Vector.hpp"
-
+#include "emannlib-graphics/OpenGL.hpp"
+#include "emannlib-graphics/OpenGLStateMachine.hpp"
 class Particle
 {
 public:
@@ -70,7 +70,7 @@ int main(int argc, char ** argv)
 
 		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-		//glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
+		glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
 
@@ -116,10 +116,14 @@ int main(int argc, char ** argv)
 	vs->AppendSource("in vec3 VertexPosition;");
 	vs->AppendSource("in vec4 VertexColor;");
 	vs->AppendSource("out vec4 FragmentColor;");
+
+	vs->AppendSource("uniform mat4 ModelViewTransform;");
+	vs->AppendSource("uniform mat4 ProjectionTransform;");
+
 	vs->AppendSource("void main()");
 	vs->AppendSource("{");
 	vs->AppendSource("	FragmentColor = VertexColor;");
-	vs->AppendSource("	gl_Position = vec4(VertexPosition, 1.0);");
+	vs->AppendSource("	gl_Position = ProjectionTransform * ModelViewTransform * vec4(VertexPosition, 1.0);");
 	vs->AppendSource("}");
 
 	if (!(vs->Compile()))
@@ -152,57 +156,30 @@ int main(int argc, char ** argv)
 
 	std::shared_ptr<emannlib::Program> p = std::make_shared<emannlib::Program>(shaders);
 
+	new emannlib::OpenGLStateMachine();
+
+
 	auto vertAttribposition = p->Attribute("VertexPosition");
 	auto vertAttribColor = p->Attribute("VertexColor");
 
-	
+
+	emannlib::OpenGLStateMachine::GetSingleton().Ortho2DFromCenterAndExtents(glm::vec2(0), 640, 480);
+
 	while (!glfwWindowShouldClose(activeWindow))
 	{
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		p->Use();
-
+		emannlib::OpenGLStateMachine::GetSingleton().UseProgram(p);
+		emannlib::OpenGLStateMachine::GetSingleton().Rotate(.01);
+		
+		
 		GLuint vao;
 
 		glGenVertexArrays(1, &vao);
 		glBindVertexArray(vao);
 
-		GLuint vbo_VertexPositions;
-
-		glGenBuffers(1, &vbo_VertexPositions);
-		glBindBuffer(GL_ARRAY_BUFFER, vbo_VertexPositions);
-
-		GLfloat vertexData [] = {
-			//  X     Y     Z
-			0.0f, 0.8f, 0.0f,
-			-0.8f, -0.8f, 0.0f,
-			0.8f, -0.8f, 0.0f,
-		};
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
-
-		glVertexAttribPointer(vertAttribposition, 3, GL_FLOAT, GL_FALSE, 0, 0);
-		glEnableVertexAttribArray(vertAttribposition);
-
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-		GLuint vbo_VertexColors;
-
-		glGenBuffers(1, &vbo_VertexColors);
-		glBindBuffer(GL_ARRAY_BUFFER, vbo_VertexColors);
-
-		GLfloat vertColors [] = {
-			1.0f, 0.0f, 0.0f, 1.0f,
-			0.0f, 1.0f, 0.0f, 1.0f,
-			0.0f, 0.0f, 1.0f, 1.0f,
-		};
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertColors), vertColors, GL_STATIC_DRAW);
-
-		glVertexAttribPointer(vertAttribColor, 4, GL_FLOAT, GL_FALSE, 0, 0);
-		glEnableVertexAttribArray(vertAttribColor);
-
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glBindVertexArray(0);
+		
 
 		
 		glBindVertexArray(vao);
@@ -210,13 +187,9 @@ int main(int argc, char ** argv)
 
 
 		
-		glDeleteBuffers(1, &vbo_VertexPositions);
-		glDeleteBuffers(1, &vbo_VertexColors);
 		glBindVertexArray(0);
-		glDeleteVertexArrays(1, &vao);
 		
-		
-		p->StopUsing();
+
 		
 		glfwSwapBuffers(activeWindow);
 		glfwPollEvents();

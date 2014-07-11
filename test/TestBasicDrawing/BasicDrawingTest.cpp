@@ -8,7 +8,7 @@
 #include "emannlib-common/Singleton.hpp"
 #include "emannlib-common/Time.hpp"
 #include "emannlib-math/Math.hpp"
-#include "emannlib-math/Vector.hpp"
+#include "emannlib-graphics/OpenGL.hpp"
 
 class Particle
 {
@@ -123,21 +123,9 @@ int main(int argc, char ** argv)
 
 		i++;
 
-		current = emannlib::Time().GetCurrentTime();
-		emannlib::OpenGLWindow::GetSingleton().BeginDraw(.7f, .7f, .7f);
-		//emannlib::OpenGLWindow::GetSingleton().ClearFrameTriangleCount();
 		for (auto p : pList)
 		{
-			emannlib::OpenGLWindow::GetSingleton().PushModelView();
-			emannlib::OpenGLWindow::GetSingleton().Translate(glm::vec2(p->x, p->y));
-			emannlib::OpenGLWindow::GetSingleton().SetColor(p->r, p->g, p->b);
-			emannlib::OpenGLWindow::GetSingleton().DrawCirle(emannlib::Vec2f(0, 0), p->size);
 
-			emannlib::OpenGLWindow::GetSingleton().SetColor(1.0 - p->r, 1.0 - p->g, 1.0 - p->b);
-			emannlib::OpenGLWindow::GetSingleton().DrawVector(emannlib::Vec2f(0, 0), emannlib::Vec2f(p->vx, p->vy), 20.0, 1.0, 6.0f, 6.0f);
-
-
-			emannlib::OpenGLWindow::GetSingleton().PopModelView();
 		}
 
 		dt = current - last;
@@ -176,8 +164,7 @@ int main(int argc, char ** argv)
 
 		last = current;
 
-		emannlib::OpenGLWindow::GetSingleton().EndDraw();
-	
+		
 	}
 
 	std::cout<<emannlib::AutoProfile::Report(80)<<std::endl;

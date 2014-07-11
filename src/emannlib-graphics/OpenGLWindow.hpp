@@ -1,28 +1,19 @@
 #ifndef __OPEN_GL_WINDOW_HPP__
 #define __OPEN_GL_WINDOW_HPP__
 
-#include "../emannlib-common/Singleton.hpp"
+#include "emannlib-common/Singleton.hpp"
 #include "Texture.hpp"
 #include "Shader.hpp"
 #include "Area.hpp"
 
-#include "../emannlib-math/Vector.hpp"
+#include "emannlib-graphics/OpenGL.hpp"
 
 #include <stack>
 #include <memory>
 #include <string>
 #include <inttypes.h>
 
-#define GLFW_INCLUDE_GLU
-#define GLEW_STATIC
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 
-#define GLM_FORCE_RADIANS
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_precision.hpp>
-#include <glm/gtc/type_ptr.hpp>
 
 namespace emannlib
 {
@@ -69,7 +60,7 @@ namespace emannlib
 		int m_WindowHeight;
 		float m_ViewableWidth;
 		float m_ViewableHeight;
-		Vec2f m_CenterPoint;
+		glm::vec2 m_CenterPoint;
 		bool m_FullScreen;
 		std::string m_WindowName;
 

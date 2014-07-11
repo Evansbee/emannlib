@@ -467,16 +467,18 @@ namespace emannlib
 
 	////static callbacks
 
-	//void OpenGLWindow::FrameBufferSizeCallback(GLFWwindow *activeWindow, int newWidth, int newHeight)
-	//{
+	void OpenGLWindow::FrameBufferSizeCallback(GLFWwindow *activeWindow, int newWidth, int newHeight)
+	{
+
+	}
 
 
-	//}
-	//void OpenGLWindow::WindowSizeCallback(GLFWwindow *activeWindow, int newWidth, int newHeight)
-	//{
-	//	OpenGLWindow::GetSingleton().SetViewportSize(newWidth, newHeight);
-	//	OpenGLWindow::GetSingleton().Ortho2DFromCenterAndExtents(OpenGLWindow::GetSingleton().m_CenterPoint, newWidth, newHeight);
-	//}
+	
+	void OpenGLWindow::WindowSizeCallback(GLFWwindow *activeWindow, int newWidth, int newHeight)
+	{
+		OpenGLWindow::GetSingleton().SetViewportSize(newWidth, newHeight);
+		//OpenGLWindow::GetSingleton().Ortho2DFromCenterAndExtents(OpenGLWindow::GetSingleton().m_CenterPoint, newWidth, newHeight);
+	}
 
 	//void APIENTRY OpenGLErrorCallback(GLenum _source,
 	//						 GLenum _type, GLuint _id, GLenum _severity,
